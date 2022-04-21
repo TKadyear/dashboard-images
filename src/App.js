@@ -1,8 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react'
 import SearchAppBar from './components/searchBar';
 import TitlebarBelowImageList from './components/image-list';
 function App() {
+  const [image, setImage] = useState();
+  useEffect(() => {
+
+  }, [])
   return (
     <div className="App">
       <SearchAppBar></SearchAppBar>
