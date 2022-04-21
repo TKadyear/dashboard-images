@@ -19,9 +19,11 @@ Para ello es conveniente mirar :
 - [Añadir variables de entorno personalizadas | Create React App](https://create-react-app.dev/docs/adding-custom-environment-variables/)
 
 Basicamente es crear un documento llamado ``.env``, asegurándonos que esta siendo ignorado por el **.gitignore** y declarar ahi las variables de entorno.
+
+Por convención de [React para declarar variables de entorno](https://create-react-app.dev/docs/adding-custom-environment-variables/) se tiene que poner ``REACT_APP_``
 ```
-KEY_PRUEBA = "EstoNoEsUnaApiKey"
-KEY_SECRETA_PRUEBA = "NingunaSeDebeVerDesdeElCliente"
+REACT_APP_KEY_PRUEBA = "EstoNoEsUnaApiKey"
+REACT_APP_KEY_SECRETA_PRUEBA = "NingunaSeDebeVerDesdeElCliente"
 ```
 
 Nota: Normalmente los nombres de las variables de entorno, suelen ir en SNAKE_UPPER_CASE.
