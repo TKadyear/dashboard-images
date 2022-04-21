@@ -154,3 +154,19 @@ De todos estos datos que te devuelve la API, los que me interesan son :
 
 }
 ```
+## ¿Cómo quieren se de atribución a los autoes de las fotografías?
+La forma que recomiendan poner es así:
+
+Photo by [Annie Spratt](https://unsplash.com/@anniespratt?utm_source=your_app_name&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=your_app_name&utm_medium=referral)
+
+
+Basicamente la URL tendría que ser algo asi:
+``` javascript
+const urlAuthor = `https://unsplash.com/${name_author_photo}?utm_source=${your_app_name}&utm_medium=referral`
+const linkUnsplash = `https://unsplash.com/?utm_source=${your_app_name}&utm_medium=referral`
+```
+
+Como se puede ver aparece repetido : ``?utm_source=your_app_name&utm_medium=referral``
+
+
+Basicamente es para que Unsplash sepa identificar desde donde vienen las visualizaciones.
