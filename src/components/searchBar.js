@@ -43,7 +43,7 @@ function MyTabs() {
 export default function SearchAppBar() {
 	return (
 		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="static">
+			<AppBar position="static" sx={{ backgroundColor: "#FFFFFF", color: "#000000" }}>
 				<Toolbar>
 					<Typography
 						variant="h6"
