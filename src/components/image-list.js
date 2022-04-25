@@ -10,7 +10,7 @@ export default function TitlebarBelowImageList(props) {
 		}}>
 			{props.itemData.map((item) => (
 				<ImageListItem key={item.id}>
-					<Image
+					<img
 						src={`${item.urls.full}?w=248&fit=crop&auto=format`}
 						alt={item.description}
 						loading="lazy"
