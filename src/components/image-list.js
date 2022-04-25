@@ -4,7 +4,10 @@ import ImageListItemBar from "@mui/material/ImageListItemBar";
 
 export default function TitlebarBelowImageList(props) {
 	return (
-		<ImageList sx={{ width: 500, height: 450 }}>
+		<ImageList sx={{
+			width: "75%",
+			margin: "0 auto"
+		}}>
 			{props.itemData.map((item) => (
 				<ImageListItem key={item.img}>
 					<img
