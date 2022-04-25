@@ -6,8 +6,6 @@ module.exports = {
 
 	"settings": {
 		"react": {
-			"createClass": "createReactClass", // Regex for Component Factory to use,
-			"pragma": "React",  // Pragma to use, default to "React"
 			"fragment": "Fragment",  // Fragment to use (may be a property of <pragma>), default to "Fragment"
 			"version": "detect",
 		}
@@ -32,6 +30,9 @@ module.exports = {
 		"@emotion/no-vanilla": "error",
 		"@emotion/import-from-emotion": "error",
 		"@emotion/styled-import": "error",
+		"react/jsx-uses-react": "off",
+		"react/react-in-jsx-scope": "off",
+		"react/prop-types": 0,
 		"indent": [
 			"error",
 			"tab"

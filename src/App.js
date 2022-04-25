@@ -3,16 +3,17 @@ import { useState, useEffect } from "react";
 import SearchAppBar from "./components/searchBar";
 import TitlebarBelowImageList from "./components/image-list";
 function App() {
-	// const [listImages, setListImages] = useState(null);
+	const [listImages, setListImages] = useState(null);
 	useEffect(() => {
 		// IMPROVE to https://api.unsplash.com/photos/?client_id={process.env.REACT_APP_CLIENT_ID}
 		fetch("./mocks/list-images-gallery.json")
 			.then(response => response.json())
 			.then(data => {
-				// setListImages(data)
+				setListImages(data);
 				console.table(data);
 			});
 	}, []);
+	console.log(listImages);
 	return (
 		<div className="App">
 			<SearchAppBar></SearchAppBar>

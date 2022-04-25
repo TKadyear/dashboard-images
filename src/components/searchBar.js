@@ -1,4 +1,3 @@
-import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -73,7 +72,7 @@ export default function SearchAppBar() {
 						component="div"
 						sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
 					>
-            DASHBOARD IMAGES
+						DASHBOARD IMAGES
 					</Typography>
 					<Search>
 						<SearchIconWrapper>
