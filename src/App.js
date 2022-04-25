@@ -8,11 +8,13 @@ function App() {
 	return (
 		<div className="App">
 			<SearchAppBar></SearchAppBar>
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/search" element={<Search />} />
-				<Route path="/gallery" element={<Gallery />} />
-			</Routes>
+			<main>
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/search" element={<Search />} />
+					<Route path="/gallery" element={<Gallery />} />
+				</Routes>
+			</main>
 		</div>
 	);
 }
