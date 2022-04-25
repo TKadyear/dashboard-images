@@ -4,18 +4,19 @@ import ImageListItemBar from "@mui/material/ImageListItemBar";
 
 export default function TitlebarBelowImageList(props) {
 	return (
-		<ImageList sx={{ width: 500, height: 450 }}>
+		<ImageList sx={{
+			width: "75%",
+			margin: "0 auto"
+		}}>
 			{props.itemData.map((item) => (
-				<ImageListItem key={item.img}>
-					<img
-						src={`${item.img}?w=248&fit=crop&auto=format`}
-						srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-						alt={item.title}
+				<ImageListItem key={item.id}>
+					<Image
+						src={`${item.urls.full}?w=248&fit=crop&auto=format`}
+						alt={item.description}
 						loading="lazy"
 					/>
 					<ImageListItemBar
-						title={item.title}
-						subtitle={<span>by: {item.author}</span>}
+						title={item.user.name}
 						position="below"
 					/>
 				</ImageListItem>
