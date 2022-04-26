@@ -1,4 +1,3 @@
-import "./App.css";
 import { Home } from "./pages/Home";
 import { Search } from "./pages/SearchPage";
 import { Gallery } from "./pages/PersonalGallery";
