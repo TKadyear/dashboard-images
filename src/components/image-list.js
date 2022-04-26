@@ -1,6 +1,7 @@
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
+import Button from "@mui/material/Button";
 
 export default function TitlebarBelowImageList(props) {
 	return (
@@ -19,6 +20,7 @@ export default function TitlebarBelowImageList(props) {
 						title={item.user.name}
 						position="below"
 					/>
+					<Button variant="contained">Contained</Button>
 				</ImageListItem>
 			))}
 		</ImageList>

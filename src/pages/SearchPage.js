@@ -46,7 +46,7 @@ export const Search = () => {
 				/>
 			</Container>
 			{isSearching && <Spinner />}
-			{results && <TitlebarBelowImageList itemData={results} />}
+			{results && <TitlebarBelowImageList searchPage={true} itemData={results} />}
 		</>
 	);
 };

@@ -1,14 +1,14 @@
 import "./App.css";
-import SearchAppBar from "./components/searchBar";
 import { Home } from "./pages/Home";
 import { Search } from "./pages/SearchPage";
 import { Gallery } from "./pages/PersonalGallery";
 import { Routes, Route } from "react-router-dom";
+import { MenuAppBar } from "./components/searchBar";
 function App() {
 	return (
 		<div className="App">
-			<SearchAppBar></SearchAppBar>
 			<main>
+				<MenuAppBar />
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/search" element={<Search />} />
