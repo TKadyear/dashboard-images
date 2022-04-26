@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import { Spinner } from "../components/spinner";
 import { conversionDataApi } from "../components/conversion-data-from-api";
 import { GalleryImages } from "../components/image-list";
-
+import { useDebounce } from "../custom-hooks/useDebounce";
 
 export const Search = () => {
 	// https://usehooks.com/useDebounce/
@@ -12,6 +12,10 @@ export const Search = () => {
 	const [results, setResults] = useState([]);
 	const [isSearching, setIsSearching] = useState(false);
 
+	const handleClick = (item) => {
+
+		console.log(item);
+	};
 	const debouncedSearchTerm = useDebounce(searchTerm, 500);
 	const handleChange = (e) => setSearchTerm(e.target.value);
 	//	https://api.unsplash.com/search/photos/?query=coffee&client_id=MIMdH3XPFMcOFvYg9cbiQ5iLuiLml2Fa14CGidU5ZXM
@@ -20,10 +24,11 @@ export const Search = () => {
 		() => {
 			if (debouncedSearchTerm) {
 				setIsSearching(true);
-				searchCharacters(debouncedSearchTerm).then((results) => {
-					setIsSearching(false);
-					setResults(results);
-				});
+				searchCharacters(debouncedSearchTerm)
+					.then((results) => {
+						setIsSearching(false);
+						setResults(results);
+					});
 			} else {
 				setResults([]);
 				setIsSearching(false);
@@ -48,7 +53,7 @@ export const Search = () => {
 				/>
 			</Container>
 			{isSearching && <Spinner />}
-			{results && <GalleryImages searchPage={true} itemData={results} />}
+			{results && <GalleryImages searchPage={true} onClick={handleClick} itemData={results} />}
 		</>
 	);
 };
@@ -65,10 +70,8 @@ function searchCharacters(search) {
 	)
 		.then((response) => response.json())
 		.then((response) => {
-			console.table(response.results);
 			const resultApi = response.results.map(item => conversionDataApi(item));
-			console.table(resultApi);
-			return response.results;
+			return resultApi;
 		})
 		.catch((error) => {
 			console.error(error);
@@ -77,24 +80,3 @@ function searchCharacters(search) {
 }
 
 
-// Custom Hook
-function useDebounce(value, delay) {
-	// State and setters for debounced value
-	const [debouncedValue, setDebouncedValue] = useState(value);
-	useEffect(
-		() => {
-			// Update debounced value after delay
-			const handler = setTimeout(() => {
-				setDebouncedValue(value);
-			}, delay);
-			// Cancel the timeout if value changes (also on delay change or unmount)
-			// This is how we prevent debounced value from updating if value is changed ...
-			// .. within the delay period. Timeout gets cleared and restarted.
-			return () => {
-				clearTimeout(handler);
-			};
-		},
-		[value, delay] // Only re-call effect if value or delay changes
-	);
-	return debouncedValue;
-}
