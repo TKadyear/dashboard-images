@@ -1,4 +1,4 @@
-const { conversionDataApi } = require("../components/conversion-data-from-api");
+import { conversionDataApi } from "../components/conversion-data-from-api";
 
 describe("Convert the data from the Unsplash Api", () => {
 	const InitialState = {
