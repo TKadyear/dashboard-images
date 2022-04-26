@@ -2,14 +2,10 @@ import { useState, useEffect } from "react";
 import { GalleryImages } from "../components/image-list";
 
 export function Gallery() {
-	const [listImages, setListImages] = useState(null);
+	const [listImages, setListImages] = useState([]);
 	useEffect(() => {
-		// IMPROVE to https://api.unsplash.com/photos/?client_id={process.env.REACT_APP_CLIENT_ID}
-		fetch("./mocks/list-images-gallery.json")
-			.then(response => response.json())
-			.then(data => {
-				setListImages(data);
-			});
+		const data = JSON.parse(localStorage.getItem("imported_photos"));
+		setListImages(data);
 	}, []);
 	return (
 		<>
