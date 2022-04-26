@@ -9,7 +9,7 @@ export function Gallery() {
 	}, []);
 	return (
 		<>
-			{listImages && <GalleryImages itemData={listImages} />}
+			{listImages && <GalleryImages personalPhotos={true} itemData={listImages} />}
 		</>
 	);
 }

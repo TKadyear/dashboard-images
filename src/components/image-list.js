@@ -13,7 +13,7 @@ export const GalleryImages = (props) => (
 			<ImageListItem key={item.id}>
 				<img
 					src={`${item.urls.full}?w=248&fit=crop&auto=format`}
-					alt={item.description}
+					alt={item.alt_description}
 					loading="lazy"
 				/>
 				<ImageListItemBar
@@ -21,6 +21,12 @@ export const GalleryImages = (props) => (
 					position="below"
 				/>
 				{props.searchPage && <Button variant="contained" onClick={() => props.onClick(item)}>Add to My Photos</Button>}
+				{props.personalPhotos && (
+					<div>
+						<p>{item.description}</p>
+						<a href={item.download} download>Download</a>
+					</div>
+				)}
 			</ImageListItem>
 		))}
 	</ImageList>
