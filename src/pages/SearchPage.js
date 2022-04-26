@@ -3,7 +3,9 @@ import { Container } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { Spinner } from "../components/spinner";
 import { conversionDataApi } from "../components/conversion-data-from-api";
-import TitlebarBelowImageList from "../components/image-list";
+import { GalleryImages } from "../components/image-list";
+
+
 export const Search = () => {
 	// https://usehooks.com/useDebounce/
 	const [searchTerm, setSearchTerm] = useState("");
@@ -46,7 +48,7 @@ export const Search = () => {
 				/>
 			</Container>
 			{isSearching && <Spinner />}
-			{results && <TitlebarBelowImageList searchPage={true} itemData={results} />}
+			{results && <GalleryImages searchPage={true} itemData={results} />}
 		</>
 	);
 };

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import TitlebarBelowImageList from "../components/image-list";
+import { GalleryImages } from "../components/image-list";
 
 export function Gallery() {
 	const [listImages, setListImages] = useState(null);
@@ -13,7 +13,7 @@ export function Gallery() {
 	}, []);
 	return (
 		<>
-			{listImages && <TitlebarBelowImageList itemData={listImages} />}
+			{listImages && <GalleryImages itemData={listImages} />}
 		</>
 	);
 }
