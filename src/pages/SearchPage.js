@@ -13,9 +13,17 @@ export const Search = () => {
 	const [isSearching, setIsSearching] = useState(false);
 
 	const handleClick = (item) => {
-
-		console.log(item);
+		const itemToImport = { ...item, date_import: new Date() };
+		let savedInLocal = localStorage.getItem("imported_photos");
+		if (savedInLocal != null) {
+			savedInLocal = JSON.parse(savedInLocal);
+			savedInLocal = [...savedInLocal, itemToImport];
+			localStorage.setItem("imported_photos", JSON.stringify(savedInLocal));
+		} else {
+			localStorage.setItem("imported_photos", JSON.stringify([itemToImport]));
+		}
 	};
+
 	const debouncedSearchTerm = useDebounce(searchTerm, 500);
 	const handleChange = (e) => setSearchTerm(e.target.value);
 	//	https://api.unsplash.com/search/photos/?query=coffee&client_id=MIMdH3XPFMcOFvYg9cbiQ5iLuiLml2Fa14CGidU5ZXM
