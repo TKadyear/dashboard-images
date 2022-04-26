@@ -20,7 +20,7 @@ export const GalleryImages = (props) => (
 					title={item.user.name}
 					position="below"
 				/>
-				{props.searchPage && <Button variant="contained" onClick={props.onClick}>Add to My Photos</Button>}
+				{props.searchPage && <Button variant="contained" onClick={() => props.onClick(item)}>Add to My Photos</Button>}
 			</ImageListItem>
 		))}
 	</ImageList>
