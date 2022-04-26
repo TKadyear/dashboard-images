@@ -6,4 +6,4 @@ export const useLocalStorage = ([idItem, defaultValue]) => {
     const saveInLocalStorage = getLocalStorage(idItem, defaultValue);
   });
 
-}
+};

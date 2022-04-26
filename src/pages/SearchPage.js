@@ -86,5 +86,3 @@ function searchCharacters(search) {
 			return [];
 		});
 }
-
-
