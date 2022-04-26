@@ -72,6 +72,7 @@ describe("Convert the data from the Unsplash Api", () => {
 			"width": 4480,
 			"height": 6720,
 			"description": "portrait ",
+			"alt_description": null,
 			"urls": {
 				//... solo serían estas por lo que pone el documento
 				"full": "https://images.unsplash.com/photo-1650381381140-5bced2f6688f?crop=entropy\u0026cs=srgb\u0026fm=jpg\u0026ixid=MnwzMjA1MTd8MHwxfGFsbHw1fHx8fHx8Mnx8MTY1MDUzNDc4NA\u0026ixlib=rb-1.2.1\u0026q=85",
