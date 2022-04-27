@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { GalleryImages } from "../components/image-list";
-
+import { FilterBar } from "../components/FilterBar";
 
 
 export function Gallery() {
@@ -16,6 +16,7 @@ export function Gallery() {
 
 	return (
 		<>
+			<FilterBar></FilterBar>
 			{listImages && <GalleryImages personalPhotos={true} itemData={listImages} />}
 		</>
 	);
