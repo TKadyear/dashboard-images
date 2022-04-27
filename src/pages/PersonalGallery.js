@@ -13,7 +13,9 @@ export function Gallery() {
 		"Height": "height",
 		"Likes": "likes",
 	};
+	const [filterActive, setFilterActive] = useState(optionsForFilter["Date Imported"]);
 	const handleClick = () => setIsAscending(prev => !prev);
+	const handleSelectedFilter = (value) => setFilterActive(value);
 
 	useEffect(() => {
 		const data = JSON.parse(localStorage.getItem("imported_photos"));
@@ -24,7 +26,13 @@ export function Gallery() {
 
 	return (
 		<>
-			<FilterBar isAscending={isAscending} onClick={handleClick} optionsFilter={optionsForFilter}></FilterBar>
+			<FilterBar
+				isAscending={isAscending}
+				onClick={handleClick}
+				optionsFilter={optionsForFilter}
+				optionActive={filterActive}
+				onChange={handleSelectedFilter}
+			/>
 			{listImages && <GalleryImages personalPhotos={true} itemData={listImages} />}
 		</>
 	);

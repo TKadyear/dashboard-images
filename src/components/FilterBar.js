@@ -10,7 +10,7 @@ export const FilterBar = (props) => {
     <div>
       <input type="text" placeholder="search" />
       <button onClick={props.onClick}>{props.isAscending ? "Ascendente" : "Descendente"}</button>
-      <select name="Order">
+      <select value={props.filterActive} name="Order" onChange={(e) => props.onChange(e.target.value)}>
         {listOptions()}
       </select>
       <hr />
