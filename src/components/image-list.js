@@ -14,7 +14,6 @@ export const GalleryImages = (props) => (
 				<img
 					src={`${item.urls.full}?w=248&fit=crop&auto=format`}
 					alt={item.alt_description}
-					loading="lazy"
 				/>
 				<ImageListItemBar
 					title={item.user.name}
