@@ -3,6 +3,12 @@ import { GalleryImages } from "../components/image-list";
 import { FilterBar } from "../components/FilterBar";
 import { InputSearch } from "../components/TextField";
 
+const sortList = (list, valueForOrder, isAscending) => {
+	console.log(list);
+	return isAscending
+		? list.sort((a, b) => a[valueForOrder] + b[valueForOrder])
+		: list.sort((a, b) => a[valueForOrder] - b[valueForOrder]);
+};
 
 export function Gallery() {
 	const [listInitialImages, setListInitialImages] = useState([]);
@@ -16,14 +22,21 @@ export function Gallery() {
 	};
 	const [filterActive, setFilterActive] = useState(optionsForFilter["Date Imported"]);
 	const handleClick = () => setIsAscending(prev => !prev);
-	const handleSelectedFilter = (value) => setFilterActive(value);
+	const handleSelectedFilter = (value) => {
+		setFilterActive(value);
+	};
 
 	useEffect(() => {
 		const data = JSON.parse(localStorage.getItem("imported_photos"));
 		setListImages(data);
 		setListInitialImages(data);
-		console.log(listInitialImages);
 	}, []);
+	useEffect(() => {
+		if (listImages.length > 0) {
+			console.log(listImages);
+			setListImages(sortList(listInitialImages, filterActive, isAscending));
+		}
+	}, [filterActive, isAscending]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const handleChange = (e) => setSearchTerm(e.target.value);
 
