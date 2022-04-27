@@ -1,15 +1,7 @@
-import { useState } from "react";
-export const FilterBar = () => {
-  const [isAscending, setIsAscending] = useState(false);
-  const itemForFilter = {
-    "Date Imported": "date_import",
-    "Width": "width",
-    "Height": "height",
-    "Likes": "likes",
-  };
+export const FilterBar = (props) => {
   const listOptions = () => {
-    const allOptions = Object.keys(itemForFilter).map(option =>
-      <option key={option} value={itemForFilter[option]}>{option}</option>
+    const allOptions = Object.keys(props.optionsFilter).map(option =>
+      <option key={option} value={props.optionsFilter[option]}>{option}</option>
     );
     return allOptions;
   };
@@ -17,7 +9,7 @@ export const FilterBar = () => {
   return (
     <div>
       <input type="text" placeholder="search" />
-      <button onClick={() => setIsAscending(prev => !prev)}>{isAscending ? "Ascendente" : "Descendente"}</button>
+      <button onClick={props.onClick}>{props.isAscending ? "Ascendente" : "Descendente"}</button>
       <select name="Order">
         {listOptions()}
       </select>
