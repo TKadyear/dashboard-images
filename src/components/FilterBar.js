@@ -8,7 +8,7 @@ export const FilterBar = (props) => {
   // TODO Input search debería ser un componente independiente entre ambas páginas.
   return (
     <div>
-      <input type="text" placeholder="search" />
+      {props.children}
       <button onClick={props.onClick}>{props.isAscending ? "Ascendente" : "Descendente"}</button>
       <select value={props.filterActive} name="Order" onChange={(e) => props.onChange(e.target.value)}>
         {listOptions()}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container } from "@mui/material";
-import TextField from "@mui/material/TextField";
+import { InputSearch } from "../components/TextField";
 import { Spinner } from "../components/spinner";
 import { conversionDataApi } from "../components/conversion-data-from-api";
 import { GalleryImages } from "../components/image-list";
@@ -49,15 +49,11 @@ export const Search = () => {
 			<Container sx={{
 				paddingTop: "3.5rem"
 			}}>
-				<TextField
+				<InputSearch
 					id="search"
 					label="Search..."
 					value={searchTerm}
 					onChange={handleChange}
-					sx={{
-						maxWidth: 900,
-						width: "90%"
-					}}
 				/>
 			</Container>
 			{isSearching && <Spinner />}

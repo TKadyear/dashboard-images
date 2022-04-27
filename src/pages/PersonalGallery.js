@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { GalleryImages } from "../components/image-list";
 import { FilterBar } from "../components/FilterBar";
+import { InputSearch } from "../components/TextField";
 
 
 export function Gallery() {
@@ -23,6 +24,9 @@ export function Gallery() {
 		setListInitialImages(data);
 		console.log(listInitialImages);
 	}, []);
+	const [searchTerm, setSearchTerm] = useState("");
+	const handleChange = (e) => setSearchTerm(e.target.value);
+
 
 	return (
 		<>
@@ -32,7 +36,14 @@ export function Gallery() {
 				optionsFilter={optionsForFilter}
 				optionActive={filterActive}
 				onChange={handleSelectedFilter}
-			/>
+			>
+				<InputSearch
+					id="search"
+					label="Search..."
+					value={searchTerm}
+					onChange={handleChange}
+				/>
+			</FilterBar>
 			{listImages && <GalleryImages personalPhotos={true} itemData={listImages} />}
 		</>
 	);
