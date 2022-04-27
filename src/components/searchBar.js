@@ -40,7 +40,7 @@ function MyTabs() {
 	);
 }
 
-export default function SearchAppBar() {
+export function MenuAppBar() {
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static" sx={{ backgroundColor: "#FFFFFF", color: "#000000" }}>

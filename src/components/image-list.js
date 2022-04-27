@@ -1,25 +1,32 @@
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
+import Button from "@mui/material/Button";
+// TODO Hacer que sea un componente más grande para reutilizar
 
-export default function TitlebarBelowImageList(props) {
-	return (
-		<ImageList sx={{ width: 500, height: 450 }}>
-			{props.itemData.map((item) => (
-				<ImageListItem key={item.img}>
-					<img
-						src={`${item.img}?w=248&fit=crop&auto=format`}
-						srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-						alt={item.title}
-						loading="lazy"
-					/>
-					<ImageListItemBar
-						title={item.title}
-						subtitle={<span>by: {item.author}</span>}
-						position="below"
-					/>
-				</ImageListItem>
-			))}
-		</ImageList>
-	);
-}
+export const GalleryImages = (props) => (
+	<ImageList sx={{
+		width: "75%",
+		margin: "0 auto"
+	}}>
+		{props.itemData.map((item) => (
+			<ImageListItem key={item.id}>
+				<img
+					src={`${item.urls.full}?w=248&fit=crop&auto=format`}
+					alt={item.alt_description}
+				/>
+				<ImageListItemBar
+					title={item.user.name}
+					position="below"
+				/>
+				{props.searchPage && <Button variant="contained" onClick={() => props.onClick(item)}>Add to My Photos</Button>}
+				{props.personalPhotos && (
+					<div>
+						<p>{item.description}</p>
+						<a href={item.download} download>Download</a>
+					</div>
+				)}
+			</ImageListItem>
+		))}
+	</ImageList>
+);
