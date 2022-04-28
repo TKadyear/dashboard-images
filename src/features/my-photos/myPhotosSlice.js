@@ -27,7 +27,12 @@ export const myPhotosSlice = createSlice({
 });
 
 export const selectAllMyPhotos = (state) => state.myPhotos;
-// export const orderAllMyPhotos = (state) => state;
+export const sortAllMyPhotos = (state, sortConfig) => {
+  const option = sortConfig.optionActive;
+  sortConfig.isAscending
+    ? state.myPhotos.sort((a, b) => a[option] + b[option])
+    : state.myPhotos.sort((a, b) => a[option] - b[option]);
+};
 
 export const { addPhoto, removePhoto, editDescription } = myPhotosSlice.actions;
 
