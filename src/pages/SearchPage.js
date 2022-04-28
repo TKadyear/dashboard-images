@@ -15,7 +15,8 @@ export const Search = () => {
 	const [isSearching, setIsSearching] = useState(false);
 	const dispatch = useDispatch();
 	const handleClick = (item) => {
-		const itemToImport = { ...item, date_import: new Date().toISOString() };
+		const date = new Date();
+		const itemToImport = { ...item, date_import: date.toISOString(), date_import_timestamp: date.getTime() };
 		dispatch(addPhoto(itemToImport));
 	};
 

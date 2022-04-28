@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const optionsForSort = {
-  "Date Imported": "date_import",
+  "Date Imported": "date_import_timestamp",
   "Width": "width",
   "Height": "height",
   "Likes": "likes",
@@ -20,23 +20,23 @@ export const myPhotosSlice = createSlice({
   },
   reducers: {
     addPhoto: (state, action) => {
-      console.log(state, action);
-      const newState = [...state].concat(action.payload);
-      if (state.length > 0) {
-        localStorage.setItem("imported_photos", JSON.stringify(newState));
-      }
-      return newState;
+      const newState = [...state.allPhotos].concat(action.payload);
+      localStorage.setItem("imported_photos", JSON.stringify(newState));
+      return { ...state, allPhotos: newState };
     },
     removePhoto: (state, action) => {
-      return [...state].filter(image => image.id != action.payload.id);
+      const newList = [...state.allPhotos].filter(image => image.id != action.payload.id);
+      localStorage.setItem("imported_photos", JSON.stringify(newList));
+      return { ...state, allPhotos: newList };
     },
     editDescription: (state, action) => {
-      return [...state].map(image => {
+      const newState = [...state.allPhotos].map(image => {
         if (image.id === action.payload.id) {
           image.description = action.payload.description;
         }
         return image;
       });
+      return { ...state, allPhotos: newState };
     },
     changeFlowOfSort: (state) => {
       return { ...state, sort: { ...state.sort, isAscending: !state.sort.isAscending } };
@@ -51,17 +51,13 @@ export const myPhotosSlice = createSlice({
 export const sortActive = (state) => state.myPhotos.sort;
 export const sortOptions = (state) => Object.keys(state.myPhotos.sort.allOptionsAvailable);
 export const selectAllMyPhotos = (state) => state.myPhotos.allPhotos;
-// BUG si quito el spread operator deja de funcionar por error de boundaries, supongo debido a que cambia el inicial.
-// BUG Tampoco es que funcione el sort
+
 export const sortAllMyPhotos = (state) => {
-  const option = state.myPhotos.sort.optionActive;
-  return state.myPhotos.sort.isAscending
-    ? [...state.myPhotos.allPhotos].sort((a, b) => {
-      return a[option] + b[option];
-    })
-    : [...state.myPhotos.allPhotos].sort((a, b) => {
-      return a[option] - b[option];
-    });
+  const option = optionsForSort[state.myPhotos.sort.optionActive];
+  const sorted = [...state.myPhotos.allPhotos].sort((a, b) => {
+    return state.myPhotos.sort.isAscending ? a[option] + b[option] : a[option] - b[option];
+  });
+  return sorted;
 };
 
 export const { addPhoto, removePhoto, editDescription, changeFlowOfSort, changeOptionForSort } = myPhotosSlice.actions;
