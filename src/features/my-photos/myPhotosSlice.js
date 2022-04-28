@@ -20,9 +20,13 @@ export const myPhotosSlice = createSlice({
   },
   reducers: {
     addPhoto: (state, action) => {
-      const newState = [...state.allPhotos].concat(action.payload);
-      localStorage.setItem("imported_photos", JSON.stringify(newState));
-      return { ...state, allPhotos: newState };
+      const isAlreadyAdded = [...state.allPhotos].every(element => element.id != action.payload.id);
+      if (isAlreadyAdded) {
+        const newState = [...state.allPhotos].concat(action.payload);
+        localStorage.setItem("imported_photos", JSON.stringify(newState));
+        return { ...state, allPhotos: newState };
+      }
+      return state;
     },
     removePhoto: (state, action) => {
       const newList = [...state.allPhotos].filter(image => image.id != action.payload.id);
