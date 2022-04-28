@@ -26,6 +26,7 @@ export const GalleryImages = (props) => (
 					<div>
 						<p>{item.description}</p>
 						<a href={item.download} download>Download</a>
+						<button onClick={() => props.onClickRemove(item)}>Remove</button>
 					</div>
 				)}
 			</ImageListItem>
