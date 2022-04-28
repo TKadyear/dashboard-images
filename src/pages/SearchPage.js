@@ -5,23 +5,18 @@ import { Spinner } from "../components/spinner";
 import { conversionDataApi } from "../components/conversion-data-from-api";
 import { GalleryImages } from "../components/image-list";
 import { useDebounce } from "../custom-hooks/useDebounce";
+import { addPhoto } from "../features/my-photos/myPhotosSlice";
+import { useDispatch } from "react-redux";
 
 export const Search = () => {
 	// https://usehooks.com/useDebounce/
 	const [searchTerm, setSearchTerm] = useState("");
 	const [results, setResults] = useState([]);
 	const [isSearching, setIsSearching] = useState(false);
-
+	const dispatch = useDispatch();
 	const handleClick = (item) => {
-		const itemToImport = { ...item, date_import: new Date() };
-		let savedInLocal = localStorage.getItem("imported_photos");
-		if (savedInLocal != null) {
-			savedInLocal = JSON.parse(savedInLocal);
-			savedInLocal = [...savedInLocal, itemToImport];
-			localStorage.setItem("imported_photos", JSON.stringify(savedInLocal));
-		} else {
-			localStorage.setItem("imported_photos", JSON.stringify([itemToImport]));
-		}
+		const itemToImport = { ...item, date_import: new Date().toISOString() };
+		dispatch(addPhoto(itemToImport));
 	};
 
 	const debouncedSearchTerm = useDebounce(searchTerm, 500);
@@ -42,7 +37,7 @@ export const Search = () => {
 				setIsSearching(false);
 			}
 		},
-		[debouncedSearchTerm] // Only call effect if debounced search term changes
+		[debouncedSearchTerm]
 	);
 	return (
 		<>
@@ -59,9 +54,9 @@ export const Search = () => {
 						width: "90%"
 					}}
 				/>
+				{isSearching && <Spinner sx={{ margin: "0 auto", }} />}
+				{results && <GalleryImages searchPage={true} onClick={handleClick} itemData={results} />}
 			</Container>
-			{isSearching && <Spinner />}
-			{results && <GalleryImages searchPage={true} onClick={handleClick} itemData={results} />}
 		</>
 	);
 };
