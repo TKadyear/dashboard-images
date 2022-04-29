@@ -51,9 +51,6 @@ export const myPhotosSlice = createSlice({
     changeOptionForSort: (state, action) => {
       return { ...state, sort: { ...state.sort, optionActive: action.payload } };
     },
-    addSearchTerm: (state, action) => {
-      return { ...state, search: action.payload };
-    }
   }
 });
 
@@ -66,7 +63,11 @@ export const searchTerm = (state) => state.myPhotos.search;
 export const sortActive = (state) => state.myPhotos.sort;
 export const sortOptions = (state) => Object.keys(state.myPhotos.sort.allOptionsAvailable);
 export const selectAllMyPhotos = (state) => state.myPhotos.allPhotos;
-export const filterByDescriptionAllMyPhotos = (state) => [...state.myPhotos.allPhotos].filter(image => image.description && image.description.includes(state.myPhotos.search));
+export const filterByDescriptionAllMyPhotos = (searchTerm) => (state) => {
+  return searchTerm.length === 0
+    ? state.myPhotos.allPhotos
+    : [...state.myPhotos.allPhotos].filter(image => image.description && image.description.includes(searchTerm));
+};
 export const sortAllMyPhotos = (state) => {
   const option = optionsForSort[state.myPhotos.sort.optionActive];
   const sorted = [...state.myPhotos.allPhotos].sort((a, b) => {
@@ -75,6 +76,6 @@ export const sortAllMyPhotos = (state) => {
   return sorted;
 };
 
-export const { addPhoto, removePhoto, addSearchTerm, editDescription, changeFlowOfSort, changeOptionForSort } = myPhotosSlice.actions;
+export const { addPhoto, removePhoto, editDescription, changeFlowOfSort, changeOptionForSort } = myPhotosSlice.actions;
 
 export default myPhotosSlice.reducer;
