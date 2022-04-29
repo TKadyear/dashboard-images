@@ -1,5 +1,5 @@
 import { GalleryImages } from "../components/image-list";
-import { sortAllMyPhotos, searchTerm, editDescription, sortActive, sortOptions, removePhoto, changeFlowOfSort, changeOptionForSort } from "../features/my-photos/myPhotosSlice";
+import { sortAllMyPhotos, editDescription, sortActive, sortOptions, removePhoto, changeFlowOfSort, changeOptionForSort } from "../features/my-photos/myPhotosSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { InputSearch } from "../components/TextField";
 import { FilterBar } from "../components/FilterBar";
@@ -28,7 +28,7 @@ export function Gallery() {
 				<InputSearch
 					id="search"
 					label="Search..."
-					value={searchTerm}
+					value={search}
 					onChange={handleChange}
 				/>
 			</FilterBar>

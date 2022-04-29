@@ -58,10 +58,8 @@ export const myPhotosSlice = createSlice({
 export const findPhoto = (id) => (state) => {
   return state.myPhotos.allPhotos.find(img => img.id === id);
 };
-export const searchTerm = (state) => state.myPhotos.search;
 export const sortActive = (state) => state.myPhotos.sort;
 export const sortOptions = (state) => Object.keys(state.myPhotos.sort.allOptionsAvailable);
-export const selectAllMyPhotos = (state) => state.myPhotos.allPhotos;
 export const sortAllMyPhotos = (searchTerm) => (state) => {
   const option = optionsForSort[state.myPhotos.sort.optionActive];
   const listFiltered = searchTerm.length === 0
