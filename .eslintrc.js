@@ -13,7 +13,8 @@ module.exports = {
 	"extends": [
 		"eslint:recommended",
 		"plugin:react/recommended",
-		"plugin:jest/recommended"
+		"plugin:jest/recommended",
+		"plugin:react-redux/recommended"
 	],
 	"parserOptions": {
 		"ecmaFeatures": {
@@ -25,7 +26,8 @@ module.exports = {
 	"plugins": [
 		"react",
 		"@emotion",
-		"jest"
+		"jest",
+		"react-redux"
 	],
 	"rules": {
 		"@emotion/jsx-import": "error",
