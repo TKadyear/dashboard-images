@@ -12,7 +12,6 @@ export const myPhotosSlice = createSlice({
   name: "my-photos",
   initialState: {
     allPhotos: JSON.parse(localStorage.getItem("imported_photos")) || [],
-    search: "",
     sort: {
       optionActive: "Likes",
       allOptionsAvailable: optionsForSort,
@@ -35,7 +34,6 @@ export const myPhotosSlice = createSlice({
       return { ...state, allPhotos: newList };
     },
     editDescription: (state, action) => {
-      console.log(action);
       const newState = [...state.allPhotos].map(image => {
         if (image.id === action.payload.id) {
           // Si no lo hago así se muta la ref del objeto por lo que se entiende como una mutación, asi que sale un error de "Immer"
@@ -43,6 +41,7 @@ export const myPhotosSlice = createSlice({
         }
         return image;
       });
+      localStorage.setItem("imported_photos", JSON.stringify(newState));
       return { ...state, allPhotos: newState };
     },
     changeFlowOfSort: (state) => {
@@ -63,14 +62,12 @@ export const searchTerm = (state) => state.myPhotos.search;
 export const sortActive = (state) => state.myPhotos.sort;
 export const sortOptions = (state) => Object.keys(state.myPhotos.sort.allOptionsAvailable);
 export const selectAllMyPhotos = (state) => state.myPhotos.allPhotos;
-export const filterByDescriptionAllMyPhotos = (searchTerm) => (state) => {
-  return searchTerm.length === 0
-    ? state.myPhotos.allPhotos
-    : [...state.myPhotos.allPhotos].filter(image => image.description && image.description.includes(searchTerm));
-};
-export const sortAllMyPhotos = (state) => {
+export const sortAllMyPhotos = (searchTerm) => (state) => {
   const option = optionsForSort[state.myPhotos.sort.optionActive];
-  const sorted = [...state.myPhotos.allPhotos].sort((a, b) => {
+  const listFiltered = searchTerm.length === 0
+    ? [...state.myPhotos.allPhotos]
+    : [...state.myPhotos.allPhotos].filter(image => image.description && image.description.includes(searchTerm));
+  const sorted = listFiltered.sort((a, b) => {
     return state.myPhotos.sort.isAscending ? a[option] + b[option] : a[option] - b[option];
   });
   return sorted;
