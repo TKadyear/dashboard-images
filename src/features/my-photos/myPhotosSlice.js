@@ -12,6 +12,7 @@ export const myPhotosSlice = createSlice({
   name: "my-photos",
   initialState: {
     allPhotos: JSON.parse(localStorage.getItem("imported_photos")) || [],
+    search: "",
     sort: {
       optionActive: "Likes",
       allOptionsAvailable: optionsForSort,
@@ -34,9 +35,11 @@ export const myPhotosSlice = createSlice({
       return { ...state, allPhotos: newList };
     },
     editDescription: (state, action) => {
+      console.log(action);
       const newState = [...state.allPhotos].map(image => {
         if (image.id === action.payload.id) {
-          image.description = action.payload.description;
+          // Si no lo hago así se muta la ref del objeto por lo que se entiende como una mutación, asi que sale un error de "Immer"
+          return { ...image, description: action.payload.description };
         }
         return image;
       });
@@ -47,15 +50,23 @@ export const myPhotosSlice = createSlice({
     },
     changeOptionForSort: (state, action) => {
       return { ...state, sort: { ...state.sort, optionActive: action.payload } };
+    },
+    addSearchTerm: (state, action) => {
+      return { ...state, search: action.payload };
     }
   }
 });
 
-
+// Parece ser que no se pueden pasar datos externos a un selector, por lo que esta función hace Currying,
+// basicamente es una función que devuelve otra para que se ejecute pero comparten el scope.
+export const findPhoto = (id) => (state) => {
+  return state.myPhotos.allPhotos.find(img => img.id === id);
+};
+export const searchTerm = (state) => state.myPhotos.search;
 export const sortActive = (state) => state.myPhotos.sort;
 export const sortOptions = (state) => Object.keys(state.myPhotos.sort.allOptionsAvailable);
 export const selectAllMyPhotos = (state) => state.myPhotos.allPhotos;
-
+export const filterByDescriptionAllMyPhotos = (state) => [...state.myPhotos.allPhotos].filter(image => image.description && image.description.includes(state.myPhotos.search));
 export const sortAllMyPhotos = (state) => {
   const option = optionsForSort[state.myPhotos.sort.optionActive];
   const sorted = [...state.myPhotos.allPhotos].sort((a, b) => {
@@ -64,6 +75,6 @@ export const sortAllMyPhotos = (state) => {
   return sorted;
 };
 
-export const { addPhoto, removePhoto, editDescription, changeFlowOfSort, changeOptionForSort } = myPhotosSlice.actions;
+export const { addPhoto, removePhoto, addSearchTerm, editDescription, changeFlowOfSort, changeOptionForSort } = myPhotosSlice.actions;
 
 export default myPhotosSlice.reducer;
