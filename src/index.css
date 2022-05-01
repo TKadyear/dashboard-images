@@ -4,4 +4,6 @@ body {
 
 main {
   min-height: calc(100vh - 64px - 88px);
+  background: rgb(188, 207, 233);
+
 }
