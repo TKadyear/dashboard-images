@@ -1,9 +1,4 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
+import { AppBar, Box, Toolbar, Typography, Tabs, Tab } from "@mui/material";
 import {
 	Link,
 	matchPath,

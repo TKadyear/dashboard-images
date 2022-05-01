@@ -1,7 +1,4 @@
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
-import Button from "@mui/material/Button";
+import { ImageList, ImageListItem, ImageListItemBar, Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { editDescription, findPhoto } from "../features/my-photos/myPhotosSlice";
