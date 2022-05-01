@@ -7,7 +7,10 @@ import { useDebounce } from "../custom-hooks/useDebounce";
 import { addPhoto } from "../features/my-photos/myPhotosSlice";
 import { useDispatch } from "react-redux";
 import { searchCharacters } from "../services/unsplash-api";
+import { useLocation } from "react-router-dom";
 export const Search = () => {
+	const location = useLocation();
+	console.log(location);
 	// https://usehooks.com/useDebounce/
 	const [searchTerm, setSearchTerm] = useState("");
 	const [results, setResults] = useState([]);
