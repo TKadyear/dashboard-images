@@ -1,27 +1,23 @@
 import { useEffect, useState } from "react";
 import { Container } from "@mui/material";
-import TextField from "@mui/material/TextField";
+import { InputSearch } from "../components/TextField";
 import { Spinner } from "../components/spinner";
 import { conversionDataApi } from "../components/conversion-data-from-api";
 import { GalleryImages } from "../components/image-list";
 import { useDebounce } from "../custom-hooks/useDebounce";
+import { addPhoto } from "../features/my-photos/myPhotosSlice";
+import { useDispatch } from "react-redux";
 
 export const Search = () => {
 	// https://usehooks.com/useDebounce/
 	const [searchTerm, setSearchTerm] = useState("");
 	const [results, setResults] = useState([]);
 	const [isSearching, setIsSearching] = useState(false);
-
+	const dispatch = useDispatch();
 	const handleClick = (item) => {
-		const itemToImport = { ...item, date_import: new Date() };
-		let savedInLocal = localStorage.getItem("imported_photos");
-		if (savedInLocal != null) {
-			savedInLocal = JSON.parse(savedInLocal);
-			savedInLocal = [...savedInLocal, itemToImport];
-			localStorage.setItem("imported_photos", JSON.stringify(savedInLocal));
-		} else {
-			localStorage.setItem("imported_photos", JSON.stringify([itemToImport]));
-		}
+		const date = new Date();
+		const itemToImport = { ...item, date_import: date.toISOString(), date_import_timestamp: date.getTime() };
+		dispatch(addPhoto(itemToImport));
 	};
 
 	const debouncedSearchTerm = useDebounce(searchTerm, 500);
@@ -42,26 +38,22 @@ export const Search = () => {
 				setIsSearching(false);
 			}
 		},
-		[debouncedSearchTerm] // Only call effect if debounced search term changes
+		[debouncedSearchTerm]
 	);
 	return (
 		<>
 			<Container sx={{
 				paddingTop: "3.5rem"
 			}}>
-				<TextField
+				<InputSearch
 					id="search"
 					label="Search..."
 					value={searchTerm}
 					onChange={handleChange}
-					sx={{
-						maxWidth: 900,
-						width: "90%"
-					}}
 				/>
+				{isSearching && <Spinner sx={{ margin: "0 auto", }} />}
+				{results && <GalleryImages searchPage={true} onClick={handleClick} itemData={results} />}
 			</Container>
-			{isSearching && <Spinner />}
-			{results && <GalleryImages searchPage={true} onClick={handleClick} itemData={results} />}
 		</>
 	);
 };
