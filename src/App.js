@@ -2,7 +2,7 @@ import { Home } from "./pages/Home";
 import { Search } from "./pages/SearchPage";
 import { Gallery } from "./pages/PersonalGallery";
 import { Routes, Route } from "react-router-dom";
-import { MenuAppBar } from "./components/searchBar";
+import { MenuAppBar } from "./components/NavMenu";
 function App() {
 	return (
 		<div className="App">
