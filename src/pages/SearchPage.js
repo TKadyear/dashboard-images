@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Container } from "@mui/material";
 import { InputSearch } from "../components/TextField";
 import { Spinner } from "../components/spinner";
-import { GalleryImages } from "../components/image-list";
+import { GalleryImages } from "../components/Images";
 import { useDebounce } from "../custom-hooks/useDebounce";
 import { addPhoto } from "../features/my-photos/myPhotosSlice";
 import { useDispatch } from "react-redux";

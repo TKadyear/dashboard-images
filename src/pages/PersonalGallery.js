@@ -1,4 +1,4 @@
-import { GalleryImages } from "../components/image-list";
+import { DisplayImages } from "../components/Images";
 import { sortAllMyPhotos, editDescription, sortActive, sortOptions, removePhoto, changeFlowOfSort, changeOptionForSort } from "../features/my-photos/myPhotosSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { InputSearch } from "../components/TextField";
@@ -32,7 +32,7 @@ export function Gallery() {
 					onChange={handleChange}
 				/>
 			</FilterBar>
-			{listImages && <GalleryImages personalPhotos={true} itemData={listImages} onClickRemove={handleClickRemove} onSubmitEdit={handleSubmitEdit} />}
+			{listImages && <DisplayImages personalPhotos={true} itemData={listImages} onClickRemove={handleClickRemove} onSubmitEdit={handleSubmitEdit} />}
 		</>
 	);
 }
