@@ -17,7 +17,7 @@ export const Search = () => {
 	const dispatch = useDispatch();
 	const handleClick = (item) => {
 		const date = new Date();
-		const itemToImport = { ...item, date_import: date, date_import_timestamp: date.getTime() };
+		const itemToImport = { ...item, date_import: date.toISOString(), date_import_timestamp: date.getTime() };
 		dispatch(addPhoto(itemToImport));
 	};
 

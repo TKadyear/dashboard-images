@@ -32,7 +32,7 @@ const CardImages = (props) => {
 				alt={item.alt_description}
 			/>
 			<Typography sx={{ padding: "0.5rem" }} variant="body2" color="text.secondary">
-				{item.date_import.toUTCString() || item.created_at.toUTCString()}
+				{item.date_import || item.created_at}
 			</Typography>
 			<Divider />
 			<Typography sx={{ padding: "0.5rem" }} variant="body2" color="text.secondary">
