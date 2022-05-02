@@ -13,7 +13,7 @@ export const myPhotosSlice = createSlice({
   initialState: {
     allPhotos: JSON.parse(localStorage.getItem("imported_photos")) || [],
     sort: {
-      optionActive: "Likes",
+      optionActive: "date_import_timestamp",
       allOptionsAvailable: optionsForSort,
       isAscending: false
     }
@@ -59,7 +59,7 @@ export const findPhoto = (id) => (state) => {
   return state.myPhotos.allPhotos.find(img => img.id === id);
 };
 export const sortActive = (state) => state.myPhotos.sort;
-export const sortOptions = (state) => Object.keys(state.myPhotos.sort.allOptionsAvailable);
+export const sortOptions = (state) => state.myPhotos.sort.allOptionsAvailable;
 export const sortAllMyPhotos = (searchTerm) => (state) => {
   const option = optionsForSort[state.myPhotos.sort.optionActive];
   const listFiltered = searchTerm.length === 0
