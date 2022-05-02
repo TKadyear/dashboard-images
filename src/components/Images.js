@@ -1,4 +1,4 @@
-import { Divider, Tooltip, Link, ImageList, ImageListItem, ImageListItemBar, Button, Card, CardMedia, CardContent, IconButton, Typography } from "@mui/material";
+import { Divider, Tooltip, Link, Button, Card, CardMedia, CardContent, IconButton, Typography } from "@mui/material";
 import { useState } from "react";
 import { EditText } from "./ModalEditDescription";
 import styled from "@emotion/styled";
@@ -6,57 +6,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DownloadIcon from "@mui/icons-material/Download";
-export const GalleryImages = (props) => {
-	const [isEditing, setIsEditing] = useState("");
-	const [open, setOpen] = useState("");
-	const handleEdit = (id) => {
-		setIsEditing(id);
-		setOpen(true);
-	};
-	const handleClose = () => {
-		setIsEditing("");
-		setOpen(false);
-	};
-	return (
-		<ImageList cols={4} gap={1} sx={{
-			width: "75%",
-			margin: "0 auto"
-		}}>
-			{props.itemData.map((item) => (
-				<ImageListItem key={item.id}>
-					<img
-						style={{ width: 250 }}
-						src={`${item.urls.full}`}
-						alt={item.alt_description}
-					/>
-					<ImageListItemBar
-						title={item.user.name}
-						position="below"
-					>
-					</ImageListItemBar>
-					{props.searchPage && <Button variant="contained" onClick={() => props.onClick(item)}>Add to My Photos</Button>}
-					{props.personalPhotos && (
-						<div>
-							<p>{item.description}</p>
-							<a href={item.download} download>Download</a>
-							<button onClick={() => props.onClickRemove(item)}>Remove</button>
-							{isEditing === item.id
-								? <EditText open={open} onClose={handleClose} id={item.id} />
-								: <button onClick={() => handleEdit(item.id)}>Edit</button>
-							}
-						</div>
-					)}
-				</ImageListItem>
-			))}
-		</ImageList>
-	);
-};
-
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 const GridImages = styled.div`
 	width: 90%;
-	margin: 0 auto;
+	margin: 2rem auto;
 	display:grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
+	gap: 2rem;
 `;
 const ActionsCard = styled.div`
 	display: flex;
@@ -75,20 +31,20 @@ const CardImages = (props) => {
 				image={item.urls.thumb}
 				alt={item.alt_description}
 			/>
-			{item.date_import && <Typography sx={{ padding: "0.5rem" }} variant="body2" color="text.secondary">
-				{item.date_import}
-			</Typography>}
+			<Typography sx={{ padding: "0.5rem" }} variant="body2" color="text.secondary">
+				{item.date_import || item.created_at}
+			</Typography>
 			<Divider />
 			<Typography sx={{ padding: "0.5rem" }} variant="body2" color="text.secondary">
 				{item.width + "x" + item.height}
 			</Typography>
 			<Divider />
-			<CardContent>
+			{props.description && <CardContent>
 				<Typography variant="body2" color="text.secondary">
 					Description:
 					{item.description || ""}
 				</Typography>
-			</CardContent>
+			</CardContent>}
 			<ActionsCard>
 				<Tooltip title="Likes">
 					<Button endIcon={<FavoriteIcon />} >{item.likes}</Button>
@@ -123,9 +79,9 @@ export const DisplayImages = (props) => {
 		}
 		return edit;
 	};
-	return (
-		<GridImages>
-			{props.itemData.map((item) => <CardImages key={item.id} item={item}>
+	const actions = (item) => {
+		return props.personalPhotos
+			? (<>
 				{editButton(item.id)}
 				<Tooltip title="Remove Image">
 					<IconButton onClick={() => props.onClickRemove(item)} aria-label="delete">
@@ -139,7 +95,19 @@ export const DisplayImages = (props) => {
 						</IconButton>
 					</Link>
 				</Tooltip>
-
+			</>)
+			: (
+				<Tooltip title="Add to my photos">
+					<IconButton onClick={() => props.onClick(item)} aria-label="Add to My Photos">
+						<AddCircleOutlineIcon />
+					</IconButton>
+				</Tooltip>
+			);
+	};
+	return (
+		<GridImages>
+			{props.itemData.map((item) => <CardImages description={props.personalPhotos} key={item.id} item={item}>
+				{actions(item)}
 			</CardImages>)}
 		</GridImages>
 	);

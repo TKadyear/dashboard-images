@@ -1,6 +1,6 @@
 export const conversionDataApi = (data) => {
 	let newFormat = {};
-	const requireData = ["id", "width", "height", "description", "alt_description", "urls", "links", "user", "categories", "likes"];
+	const requireData = ["id", "created_at", "width", "height", "description", "alt_description", "urls", "links", "user", "categories", "likes"];
 	requireData.forEach(itemRequired => {
 		switch (itemRequired) {
 			case "urls": {

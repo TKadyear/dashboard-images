@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Container } from "@mui/material";
 import { InputSearch } from "../components/TextField";
 import { Spinner } from "../components/spinner";
-import { GalleryImages } from "../components/Images";
+import { DisplayImages } from "../components/Images";
 import { useDebounce } from "../custom-hooks/useDebounce";
 import { addPhoto } from "../features/my-photos/myPhotosSlice";
 import { useDispatch } from "react-redux";
@@ -18,7 +17,7 @@ export const Search = () => {
 	const dispatch = useDispatch();
 	const handleClick = (item) => {
 		const date = new Date();
-		const itemToImport = { ...item, date_import: date.toISOString(), date_import_timestamp: date.getTime() };
+		const itemToImport = { ...item, date_import: date, date_import_timestamp: date.getTime() };
 		dispatch(addPhoto(itemToImport));
 	};
 
@@ -44,18 +43,15 @@ export const Search = () => {
 	);
 	return (
 		<>
-			<Container sx={{
-				paddingTop: "3.5rem"
-			}}>
-				<InputSearch
-					id="search"
-					label="Search..."
-					value={searchTerm}
-					onChange={handleChange}
-				/>
-				{isSearching && <Spinner sx={{ margin: "0 auto", }} />}
-				{results && <GalleryImages searchPage={true} onClick={handleClick} itemData={results} />}
-			</Container>
+			<InputSearch
+				id="search"
+				label="Search..."
+				value={searchTerm}
+				onChange={handleChange}
+			/>
+			{isSearching && <Spinner sx={{ margin: "0 auto", }} />}
+			{results && <DisplayImages onClick={handleClick} itemData={results} />}
+
 		</>
 	);
 };
