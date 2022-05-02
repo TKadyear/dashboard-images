@@ -3,7 +3,7 @@ import { Search } from "./pages/SearchPage";
 import { Gallery } from "./pages/PersonalGallery";
 import { Routes, Route } from "react-router-dom";
 import { MenuAppBar } from "./components/NavMenu";
-// import { FooterBar } from "./components/Footer";
+import { FooterBar } from "./components/Footer";
 import { NoMatch } from "./pages/NoMatch";
 function App() {
 	return (
@@ -17,7 +17,7 @@ function App() {
 					<Route path="*" element={<NoMatch />} />
 				</Routes>
 			</main>
-			{/* <FooterBar /> */}
+			<FooterBar />
 		</div>
 	);
 }
