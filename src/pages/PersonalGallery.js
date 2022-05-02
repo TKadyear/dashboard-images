@@ -1,9 +1,11 @@
-import { GalleryImages } from "../components/image-list";
+import { DisplayImages } from "../components/Images";
 import { sortAllMyPhotos, editDescription, sortActive, sortOptions, removePhoto, changeFlowOfSort, changeOptionForSort } from "../features/my-photos/myPhotosSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { InputSearch } from "../components/TextField";
 import { FilterBar } from "../components/FilterBar";
 import { useState } from "react";
+import { NoImages } from "./NoMatch";
+
 
 export function Gallery() {
 	const dispatch = useDispatch();
@@ -19,20 +21,26 @@ export function Gallery() {
 	};
 	return (
 		<>
-			<FilterBar
-				sortOptions={sortData}
-				onClick={() => dispatch(changeFlowOfSort())}
-				optionsFilter={allSortOptions}
-				onChange={(value) => dispatch(changeOptionForSort(value))}
-			>
-				<InputSearch
-					id="search"
-					label="Search..."
-					value={search}
-					onChange={handleChange}
-				/>
-			</FilterBar>
-			{listImages && <GalleryImages personalPhotos={true} itemData={listImages} onClickRemove={handleClickRemove} onSubmitEdit={handleSubmitEdit} />}
+			{
+				listImages.length > 0
+					? (<>
+						<FilterBar
+							sortOptions={sortData}
+							onClick={() => dispatch(changeFlowOfSort())}
+							optionsFilter={allSortOptions}
+							onChange={(value) => dispatch(changeOptionForSort(value))}
+						>
+							<InputSearch
+								id="search"
+								label="Search..."
+								value={search}
+								onChange={handleChange}
+							/>
+						</FilterBar>
+						<DisplayImages personalPhotos={true} itemData={listImages} onClickRemove={handleClickRemove} onSubmitEdit={handleSubmitEdit} />
+					</>)
+					: <NoImages text="Parece que aún no tienes ninguna foto añadida. Empieza a buscar en :" to="/search" value="Search" />
+			}
 		</>
 	);
 }
