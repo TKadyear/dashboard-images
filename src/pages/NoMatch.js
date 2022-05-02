@@ -36,3 +36,12 @@ export const NoMatch = () => {
     </Container>
   );
 };
+
+export const NoImages = (props) => {
+  return (
+    <Container>
+      <Typography sx={{ fontSize: "1.5rem" }} variant="h2" >{props.text}</Typography>
+      {props.to && <Button to={props.to} component={Link}>{props.value}</Button>}
+    </Container>
+  );
+};
