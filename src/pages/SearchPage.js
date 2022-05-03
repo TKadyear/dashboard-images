@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { searchCharacters } from "../services/unsplash-api";
 // import { useLocation } from "react-router-dom";
 import { FilterBar } from "../components/FilterBar";
+import { Typography } from "@mui/material";
 
 // IMPROVE hacer un slice para gestionar mejor el state de estas fotos
 export const sortPhotos = (photos, sort) => {
@@ -37,6 +38,7 @@ export const Search = () => {
 	// https://usehooks.com/useDebounce/
 	const [searchTerm, setSearchTerm] = useState("");
 	const [results, setResults] = useState([]);
+	const [firstRequest, setFirstRequest] = useState(true);
 	const [isSearching, setIsSearching] = useState(false);
 	const dispatch = useDispatch();
 	const handleClick = (item) => {
@@ -60,6 +62,7 @@ export const Search = () => {
 					.then((results) => {
 						setIsSearching(false);
 						setResults(sortPhotos(results, sort));
+						setFirstRequest(false);
 					});
 			} else {
 				setResults([]);
@@ -78,8 +81,9 @@ export const Search = () => {
 					onChange={handleChange}
 				/>
 			</FilterBar>
-			{isSearching && <Spinner sx={{ margin: "0 auto", }} />}
+			{isSearching && <Spinner />}
 			{results && <DisplayImages onClick={handleClick} itemData={results} />}
+			{results.length === 0 && <Typography variant="h4" sx={{ textAlign: "center" }} >{firstRequest ? "Prueba a buscar algo " : "No hay resultados con esa búsqueda"}</Typography>}
 
 		</>
 	);
