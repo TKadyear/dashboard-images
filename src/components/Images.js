@@ -1,4 +1,4 @@
-import { Divider, Tooltip, Link, Button, Card, CardMedia, CardContent, IconButton, Typography } from "@mui/material";
+import { Divider, Tooltip, Button, Card, CardMedia, CardContent, IconButton, Typography } from "@mui/material";
 import { useState } from "react";
 import { EditText } from "./ModalEditDescription";
 import styled from "@emotion/styled";
@@ -89,11 +89,9 @@ export const DisplayImages = (props) => {
 					</IconButton>
 				</Tooltip>
 				<Tooltip title="Download Image">
-					<Link rel="noopener noreferrer" target="_blank" href={item.download} download>
-						<IconButton aria-label="download">
-							<DownloadIcon />
-						</IconButton>
-					</Link>
+					<IconButton aria-label="download" onClick={() => props.onDownload(item.urls.full)}>
+						<DownloadIcon />
+					</IconButton>
 				</Tooltip>
 			</>)
 			: (

@@ -61,7 +61,8 @@ export const findPhoto = (id) => (state) => {
 export const sortActive = (state) => state.myPhotos.sort;
 export const sortOptions = (state) => state.myPhotos.sort.allOptionsAvailable;
 export const sortAllMyPhotos = (searchTerm) => (state) => {
-  const option = optionsForSort[state.myPhotos.sort.optionActive];
+  const option = state.myPhotos.sort.optionActive;
+  console.log(option);
   const listFiltered = searchTerm.length === 0
     ? [...state.myPhotos.allPhotos]
     : [...state.myPhotos.allPhotos].filter(image => image.description && image.description.includes(searchTerm));
