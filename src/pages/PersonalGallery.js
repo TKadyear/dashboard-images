@@ -38,7 +38,7 @@ export function Gallery() {
 						</FilterBar>
 						<DisplayImages personalPhotos={true} itemData={listImages} onSubmitEdit={handleSubmitEdit} />
 					</>)
-					: <NoImages text="It seems like you don't have any photo yet." to="/search" value="Search photos" />
+					: <NoImages text="It seems like you don't have any photo yet." to="/dashboard-images/search" value="Search photos" />
 			}
 		</>
 	);

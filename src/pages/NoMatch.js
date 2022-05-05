@@ -29,9 +29,9 @@ export const NoMatch = () => {
         <Typography sx={{ fontSize: "1.5rem", textTransform: "uppercase" }} variant="h2" >The link is broken or the page has been moved. Try these pages instead:</Typography>
       </Box>
       <LinksRow>
-        <Button to="/" component={Link}>Home</Button>
-        <Button to="/search" component={Link}>Search</Button>
-        <Button to="/gallery" component={Link}>My Photos</Button>
+        <Button to="/dashboard-images" component={Link}>Home</Button>
+        <Button to="/dashboard-images/search" component={Link}>Search</Button>
+        <Button to="/dashboard-images/gallery" component={Link}>My Photos</Button>
       </LinksRow>
     </Container>
   );

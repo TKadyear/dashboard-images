@@ -33,14 +33,14 @@ function useRouteMatch(patterns) {
 }
 function MyTabs() {
 
-	const routeMatch = useRouteMatch(["/", "/search", "/gallery"]);
+	const routeMatch = useRouteMatch(["/dashboard-images", "/dashboard-images/search", "/dashboard-images/gallery"]);
 	const currentTab = routeMatch?.pattern?.path;
 
 	return (
 		<Tabs indicatorColor="secondary" textColor="secondary" color="secondary" value={currentTab}>
-			<StyledTab label="Home" value="/" to="/" component={Link} />
-			<StyledTab label="Search" value="/search" to="/search" component={Link} />
-			<StyledTab label="Gallery" value="/gallery" to="/gallery" component={Link} />
+			<StyledTab label="Home" value="/dashboard-images" to="/dashboard-images" component={Link} />
+			<StyledTab label="Search" value="/dashboard-images/search" to="/dashboard-images/search" component={Link} />
+			<StyledTab label="Gallery" value="/dashboard-images/gallery" to="/dashboard-images/gallery" component={Link} />
 		</Tabs>
 	);
 }
@@ -50,7 +50,6 @@ export function MenuAppBar() {
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static" >
 				<Toolbar>
-					<img src="/logo.svg" alt="logo" />
 					<Typography
 						variant="h6"
 						noWrap
