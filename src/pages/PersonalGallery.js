@@ -38,7 +38,7 @@ export function Gallery() {
 						</FilterBar>
 						<DisplayImages personalPhotos={true} itemData={listImages} onSubmitEdit={handleSubmitEdit} />
 					</>)
-					: <NoImages text="Parece que aún no tienes ninguna foto añadida. Empieza a buscar en :" to="/search" value="Search" />
+					: <NoImages text="It seems like you don't have any photo yet." to="/search" value="Search photos" />
 			}
 		</>
 	);
