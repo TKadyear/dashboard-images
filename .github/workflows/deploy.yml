@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-artifact
-          path: /build
+          path: build
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -37,6 +37,8 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build-artifact
-          path: /build
-      - name: Debugging
-        run: pwd
+          path: dashboard-images/build
+      - name: Deploy with gh-pages
+        run: npx gh-pages -d build -u "github-actions-bot <support+actions@github.com>"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
