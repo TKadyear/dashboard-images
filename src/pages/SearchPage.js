@@ -10,6 +10,13 @@ import { searchCharacters } from "../services/unsplash-api";
 import { FilterBar } from "../components/FilterBar";
 import { Typography } from "@mui/material";
 import { addListPhoto, sortAllMyPhotos, sortActive, sortOptions, changeFlowOfSort, changeOptionForSort } from "../features/unsplash-photos/unsplashPhotosSlice";
+// const optionsForSort = {
+// 	"Date Imported": "date_import",
+// 	"Width": "width",
+// 	"Height": "height",
+// 	"Likes": "likes",
+// };
+
 
 // IMPROVE hacer un slice para gestionar mejor el state de estas fotos
 export const sortPhotos = (photos, sort) => {
