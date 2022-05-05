@@ -20,6 +20,7 @@ export function Gallery() {
 		dispatch(editDescription(payload));
 	};
 	const handleDownload = (url) => saveAs(url, "myphoto.jpg");
+	// TODO Diferenciar a cuando no hay ninguna imagen en el store, se podría mirar con el selector
 	return (
 		<>
 			{
