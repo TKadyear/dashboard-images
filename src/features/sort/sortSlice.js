@@ -1,15 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// IMPROVE in the componentMount como tal hay que hacer un dispatch de las opciones para el state
 
-// const optionsForSort = {
-//   all: {
-//     "Width": "width",
-//     "Height": "height",
-//     "Likes": "likes"
-//   },
-//   active: "width"
-
-// };
 export const sortSlice = createSlice({
   name: "sort",
   initialState: {

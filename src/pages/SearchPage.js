@@ -7,8 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { searchCharacters } from "../services/unsplash-api";
 // import { useLocation } from "react-router-dom";
 import { FilterBar } from "../components/FilterBar";
-import { Typography } from "@mui/material";
 import { addListPhoto, unsplashPhotos } from "../features/unsplash-photos/unsplashPhotosSlice";
+import { NoResults } from "../components/NoResults";
 
 export const Search = () => {
 	const dispatch = useDispatch();
@@ -52,8 +52,11 @@ export const Search = () => {
 				/>
 			</FilterBar>
 			{isSearching && <Spinner />}
-			{listImages && <DisplayImages itemData={listImages} />}
-			{listImages.length === 0 && <Typography variant="h4" sx={{ textAlign: "center" }} >{firstRequest ? "Prueba a buscar algo " : "No hay resultados con esa búsqueda"}</Typography>}
+			{listImages.length === 0
+				? <NoResults
+					textContent={firstRequest ? "Try to search." : `We're sorry. We were not able to find a match for "${searchTerm}".`}
+					subtitle={firstRequest || "Try Another Search?"} />
+				: <DisplayImages itemData={listImages} />}
 
 		</>
 	);
