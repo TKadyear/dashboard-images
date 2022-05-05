@@ -5,13 +5,9 @@ export const unsplashPhotosSlice = createSlice({
   name: "unsplash-photos",
   initialState: [],
   reducers: {
-    addListPhoto: (state, action) => {
-      const isAlreadyAdded = [...state].every(element => element.id != action.payload.id);
-      if (isAlreadyAdded) {
-        const newState = [...state].concat(action.payload);
-        return newState;
-      }
-      return state;
+    addListPhoto: (state, action) => {//Aunque no necesite el state se borra por completo
+      const newState = [...action.payload];
+      return newState;
     }
   }
 });
