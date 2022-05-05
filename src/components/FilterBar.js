@@ -37,7 +37,7 @@ export const FilterBar = (props) => {
       }
       <FormControl>
 
-        <InputLabel id="sort-options">Sort Options:</InputLabel>
+        <InputLabel id="sort-options">Sort</InputLabel>
         <Select sx={{ width: "150px" }} labelId="sort-options" label="Sort" value={sort.optionActive} name="Order" onChange={(e) => handleChangeSort(e.target.value)}>
           {menuOptions()}
         </Select>
