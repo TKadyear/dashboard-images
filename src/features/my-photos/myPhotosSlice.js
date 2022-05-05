@@ -17,7 +17,7 @@ export const myPhotosSlice = createSlice({
       return state;
     },
     removePhoto: (state, action) => {
-      const newList = [...state].filter(image => image.id != action.payload.id);
+      const newList = [...state].filter(image => image.id != action.payload);
       localStorage.setItem("imported_photos", JSON.stringify(newList));
       return newList;
     },
