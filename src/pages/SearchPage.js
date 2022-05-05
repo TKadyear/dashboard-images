@@ -9,39 +9,18 @@ import { searchCharacters } from "../services/unsplash-api";
 // import { useLocation } from "react-router-dom";
 import { FilterBar } from "../components/FilterBar";
 import { Typography } from "@mui/material";
-import { addListPhoto, sortAllMyPhotos, sortActive, sortOptions, changeFlowOfSort, changeOptionForSort } from "../features/unsplash-photos/unsplashPhotosSlice";
-// const optionsForSort = {
-// 	"Date Imported": "date_import",
-// 	"Width": "width",
-// 	"Height": "height",
-// 	"Likes": "likes",
-// };
-
-
-// IMPROVE hacer un slice para gestionar mejor el state de estas fotos
-export const sortPhotos = (photos, sort) => {
-	const option = sort.optionActive;
-	const sorted = [...photos].sort((a, b) => {
-		return sort.isAscending ? a[option] + b[option] : a[option] - b[option];
-	});
-	return sorted;
-};
+import { addListPhoto, unsplashPhotos } from "../features/unsplash-photos/unsplashPhotosSlice";
 
 export const Search = () => {
 	const dispatch = useDispatch();
-	const sortData = useSelector(sortActive);
-	const allSortOptions = useSelector(sortOptions);
-	const results = useSelector(sortAllMyPhotos);
-	const handleClickAscending = () => dispatch(changeFlowOfSort());
-	const handleChangeSort = (value) => dispatch(changeOptionForSort(value));
+	const listImages = useSelector(unsplashPhotos);
 	// const location = useLocation();
 	// console.log(location);
-
 
 	const [searchTerm, setSearchTerm] = useState("");
 	const [firstRequest, setFirstRequest] = useState(true);
 	const [isSearching, setIsSearching] = useState(false);
-	const handleClick = (item) => {
+	const handleClick = (item) => { //IMPROVE lo podría gestionar solo el componente y yo olvidarme de ello
 		const date = new Date();
 		const itemToImport = { ...item, date_import: date.toISOString(), date_import_timestamp: date.getTime() };
 		dispatch(addPhoto(itemToImport));
@@ -69,11 +48,7 @@ export const Search = () => {
 	);
 	return (
 		<>
-			<FilterBar
-				optionsFilter={allSortOptions}
-				sortOptions={sortData}
-				onClick={handleClickAscending}
-				onChange={handleChangeSort}>
+			<FilterBar>
 				<InputSearch
 					id="search"
 					label="Search..."
@@ -82,8 +57,8 @@ export const Search = () => {
 				/>
 			</FilterBar>
 			{isSearching && <Spinner />}
-			{results && <DisplayImages onClick={handleClick} itemData={results} />}
-			{results.length === 0 && <Typography variant="h4" sx={{ textAlign: "center" }} >{firstRequest ? "Prueba a buscar algo " : "No hay resultados con esa búsqueda"}</Typography>}
+			{listImages && <DisplayImages onClick={handleClick} itemData={listImages} />}
+			{listImages.length === 0 && <Typography variant="h4" sx={{ textAlign: "center" }} >{firstRequest ? "Prueba a buscar algo " : "No hay resultados con esa búsqueda"}</Typography>}
 
 		</>
 	);
