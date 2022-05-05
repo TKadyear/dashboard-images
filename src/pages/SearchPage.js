@@ -4,11 +4,12 @@ import { Spinner } from "../components/spinner";
 import { DisplayImages } from "../components/Images";
 import { useDebounce } from "../custom-hooks/useDebounce";
 import { addPhoto } from "../features/my-photos/myPhotosSlice";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { searchCharacters } from "../services/unsplash-api";
 // import { useLocation } from "react-router-dom";
 import { FilterBar } from "../components/FilterBar";
 import { Typography } from "@mui/material";
+import { addListPhoto, sortAllMyPhotos, sortActive, sortOptions, changeFlowOfSort, changeOptionForSort } from "../features/unsplash-photos/unsplashPhotosSlice";
 
 // IMPROVE hacer un slice para gestionar mejor el state de estas fotos
 export const sortPhotos = (photos, sort) => {
@@ -20,27 +21,19 @@ export const sortPhotos = (photos, sort) => {
 };
 
 export const Search = () => {
-	const optionsForSort = {
-		"Width": "width",
-		"Height": "height",
-		"Likes": "likes",
-	};
-	const [sort, setSort] = useState({
-		optionActive: "width",
-		allOptionsAvailable: optionsForSort,
-		isAscending: false
-	});
-	// BUG No funciona el botón para cambiar el orden.
-	const handleClickAscending = () => setSort(prev => { return { ...prev, isAscending: !prev.isAscending }; });
-	const handleChangeSort = (value) => setSort(prev => { return { ...prev, optionActive: value }; });
+	const dispatch = useDispatch();
+	const sortData = useSelector(sortActive);
+	const allSortOptions = useSelector(sortOptions);
+	const results = useSelector(sortAllMyPhotos);
+	const handleClickAscending = () => dispatch(changeFlowOfSort());
+	const handleChangeSort = (value) => dispatch(changeOptionForSort(value));
 	// const location = useLocation();
 	// console.log(location);
-	// https://usehooks.com/useDebounce/
+
+
 	const [searchTerm, setSearchTerm] = useState("");
-	const [results, setResults] = useState([]);
 	const [firstRequest, setFirstRequest] = useState(true);
 	const [isSearching, setIsSearching] = useState(false);
-	const dispatch = useDispatch();
 	const handleClick = (item) => {
 		const date = new Date();
 		const itemToImport = { ...item, date_import: date.toISOString(), date_import_timestamp: date.getTime() };
@@ -49,10 +42,6 @@ export const Search = () => {
 
 	const debouncedSearchTerm = useDebounce(searchTerm, 500);
 	const handleChange = (e) => setSearchTerm(e.target.value);
-	useEffect(() => {
-		return () => setResults(prev => sortPhotos(prev, sort));
-	}, [sort]);
-	//	https://api.unsplash.com/search/photos/?query=coffee&client_id=MIMdH3XPFMcOFvYg9cbiQ5iLuiLml2Fa14CGidU5ZXM
 	// Effect for API call
 	useEffect(
 		() => {
@@ -61,11 +50,11 @@ export const Search = () => {
 				searchCharacters(debouncedSearchTerm)
 					.then((results) => {
 						setIsSearching(false);
-						setResults(sortPhotos(results, sort));
+						dispatch(addListPhoto(results));
 						setFirstRequest(false);
 					});
 			} else {
-				setResults([]);
+				dispatch(addListPhoto([]));
 				setIsSearching(false);
 			}
 		},
@@ -73,7 +62,11 @@ export const Search = () => {
 	);
 	return (
 		<>
-			<FilterBar optionsFilter={optionsForSort} sortOptions={sort} onClick={handleClickAscending} onChange={handleChangeSort}>
+			<FilterBar
+				optionsFilter={allSortOptions}
+				sortOptions={sortData}
+				onClick={handleClickAscending}
+				onChange={handleChangeSort}>
 				<InputSearch
 					id="search"
 					label="Search..."

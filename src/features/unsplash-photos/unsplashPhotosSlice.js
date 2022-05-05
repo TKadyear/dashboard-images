@@ -17,7 +17,7 @@ export const unsplashPhotosSlice = createSlice({
     }
   },
   reducers: {
-    addPhoto: (state, action) => {
+    addListPhoto: (state, action) => {
       const isAlreadyAdded = [...state.allPhotos].every(element => element.id != action.payload.id);
       if (isAlreadyAdded) {
         const newState = [...state.allPhotos].concat(action.payload);
@@ -39,18 +39,16 @@ export const findPhoto = (id) => (state) => {
 };
 export const sortActive = (state) => state.unsplashPhotos.sort;
 export const sortOptions = (state) => state.unsplashPhotos.sort.allOptionsAvailable;
-export const sortAllMyPhotos = (searchTerm) => (state) => {
+export const sortAllMyPhotos = (state) => {
   const option = state.unsplashPhotos.sort.optionActive;
-  console.log(option);
-  const listFiltered = searchTerm.length === 0
-    ? [...state.unsplashPhotos.allPhotos]
-    : [...state.unsplashPhotos.allPhotos].filter(image => image.description && image.description.includes(searchTerm));
-  const sorted = listFiltered.sort((a, b) => {
-    return state.unsplashPhotos.sort.isAscending ? a[option] + b[option] : a[option] - b[option];
-  });
+  const sorted = [...state.unsplashPhotos.allPhotos].sort((a, b) =>
+    state.unsplashPhotos.sort.isAscending
+      ? a[option] + b[option]
+      : a[option] - b[option]
+  );
   return sorted;
 };
 
-export const { addPhoto, removePhoto, editDescription, changeFlowOfSort, changeOptionForSort } = unsplashPhotosSlice.actions;
+export const { addListPhoto, changeFlowOfSort, changeOptionForSort } = unsplashPhotosSlice.actions;
 
 export default unsplashPhotosSlice.reducer;
