@@ -1,7 +1,10 @@
 import { Typography, Link } from "@mui/material";
 import styled from "@emotion/styled";
 
+/* background: ${theme => theme.palette.primary.main}; */
 const BottomNavigation = styled.footer`/*css*/
+  background: #230541;
+  color: #FFFFFF;
   display:flex;
   flex-direction: column;
   padding: 1rem;
@@ -11,8 +14,8 @@ const BottomNavigation = styled.footer`/*css*/
 export const FooterBar = () => {
   return (
     <BottomNavigation>
-      <Typography><Link rel="noopener noreferrer" target="_blank" href="https://github.com/TKadyear/dashboard-images">DASHBOARD IMAGES</Link>©All Rights Reserved</Typography>
-      <Typography variant="p">Website developed by <Link rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/in/tamara-kadyear-saber/">
+      <Typography><Link color="secondary" rel="noopener noreferrer" target="_blank" href="https://github.com/TKadyear/dashboard-images">DASHBOARD IMAGES</Link>©All Rights Reserved</Typography>
+      <Typography variant="p">Website developed by <Link color="secondary" rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/in/tamara-kadyear-saber/">
         Tamara Kadyear
       </Link>
       </Typography>
