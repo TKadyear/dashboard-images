@@ -1,42 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const optionsForSort = {
-  "Date Imported": "date_import_timestamp",
-  "Width": "width",
-  "Height": "height",
-  "Likes": "likes",
-};
-
 // LocalStorage getItem y setItem son funciones sincrónas por lo que por eso se puede declarar de esa manera en la línea 5.
 export const myPhotosSlice = createSlice({
   name: "my-photos",
-  initialState: {
-    allPhotos: JSON.parse(localStorage.getItem("imported_photos")) || [],
-    sort: {
-      optionActive: "date_import_timestamp",
-      allOptionsAvailable: optionsForSort,
-      isAscending: false
-    }
-  },
+  initialState: JSON.parse(localStorage.getItem("imported_photos")) || [],
   reducers: {
     addPhoto: (state, action) => {
-      const isAlreadyAdded = [...state.allPhotos].every(element => element.id != action.payload.id);
+      const isAlreadyAdded = [...state].every(element => element.id != action.payload.id);
       if (isAlreadyAdded) {
         const date = new Date();
         const newPhoto = { ...action.payload, date_import: date.toISOString(), date_import_timestamp: date.getTime() };
-        const newState = [...state.allPhotos].concat(newPhoto);
+        const newState = [...state].concat(newPhoto);
         localStorage.setItem("imported_photos", JSON.stringify(newState));
-        return { ...state, allPhotos: newState };
+        return newState;
       }
       return state;
     },
     removePhoto: (state, action) => {
-      const newList = [...state.allPhotos].filter(image => image.id != action.payload.id);
+      const newList = [...state].filter(image => image.id != action.payload);
       localStorage.setItem("imported_photos", JSON.stringify(newList));
-      return { ...state, allPhotos: newList };
+      return newList;
     },
     editDescription: (state, action) => {
-      const newState = [...state.allPhotos].map(image => {
+      const newState = [...state].map(image => {
         if (image.id === action.payload.id) {
           // Si no lo hago así se muta la ref del objeto por lo que se entiende como una mutación, asi que sale un error de "Immer"
           return { ...image, description: action.payload.description };
@@ -44,13 +30,7 @@ export const myPhotosSlice = createSlice({
         return image;
       });
       localStorage.setItem("imported_photos", JSON.stringify(newState));
-      return { ...state, allPhotos: newState };
-    },
-    changeFlowOfSort: (state) => {
-      return { ...state, sort: { ...state.sort, isAscending: !state.sort.isAscending } };
-    },
-    changeOptionForSort: (state, action) => {
-      return { ...state, sort: { ...state.sort, optionActive: action.payload } };
+      return newState;
     },
   }
 });
@@ -58,22 +38,19 @@ export const myPhotosSlice = createSlice({
 // Parece ser que no se pueden pasar datos externos a un selector, por lo que esta función hace Currying,
 // basicamente es una función que devuelve otra para que se ejecute pero comparten el scope.
 export const findPhoto = (id) => (state) => {
-  return state.myPhotos.allPhotos.find(img => img.id === id);
+  return state.myPhotos.find(img => img.id === id);
 };
-export const sortActive = (state) => state.myPhotos.sort;
-export const sortOptions = (state) => state.myPhotos.sort.allOptionsAvailable;
 export const sortAllMyPhotos = (searchTerm) => (state) => {
-  const option = state.myPhotos.sort.optionActive;
-  console.log(option);
+  const option = state.sort.optionActive;
   const listFiltered = searchTerm.length === 0
-    ? [...state.myPhotos.allPhotos]
-    : [...state.myPhotos.allPhotos].filter(image => image.description && image.description.includes(searchTerm));
+    ? [...state.myPhotos]
+    : [...state.myPhotos].filter(image => image.description && image.description.includes(searchTerm));
   const sorted = listFiltered.sort((a, b) => {
-    return state.myPhotos.sort.isAscending ? a[option] + b[option] : a[option] - b[option];
+    return state.sort.isAscending ? a[option] + b[option] : a[option] - b[option];
   });
   return sorted;
 };
 
-export const { addPhoto, removePhoto, editDescription, changeFlowOfSort, changeOptionForSort } = myPhotosSlice.actions;
+export const { addPhoto, removePhoto, editDescription } = myPhotosSlice.actions;
 
 export default myPhotosSlice.reducer;

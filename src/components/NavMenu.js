@@ -4,8 +4,21 @@ import {
 	matchPath,
 	useLocation,
 } from "react-router-dom";
-
-
+import styled from "@emotion/styled";
+const StyledTab = styled((props) => <Tab disableRipple {...props} />)(
+	({ theme }) => ({
+		textTransform: "none",
+		fontWeight: theme.typography.fontWeightRegular,
+		marginRight: theme.spacing(1),
+		color: "rgba(255, 255, 255, 0.7)",
+		"&.Mui-selected": {
+			color: "#fff",
+		},
+		"&.Mui-focusVisible": {
+			backgroundColor: "rgba(100, 95, 228, 0.32)",
+		},
+	}),
+);
 function useRouteMatch(patterns) {
 	const { pathname } = useLocation();
 	for (let i = 0; i < patterns.length; i += 1) {
@@ -19,18 +32,15 @@ function useRouteMatch(patterns) {
 	return null;
 }
 function MyTabs() {
-	// You need to provide the routes in descendant order.
-	// This means that if you have nested routes like:
-	// users, users/new, users/edit.
-	// Then the order should be ['users/add', 'users/edit', 'users'].
+
 	const routeMatch = useRouteMatch(["/", "/search", "/gallery"]);
 	const currentTab = routeMatch?.pattern?.path;
 
 	return (
-		<Tabs value={currentTab}>
-			<Tab label="Home" value="/" to="/" component={Link} />
-			<Tab label="Search" value="/search" to="/search" component={Link} />
-			<Tab label="Gallery" value="/gallery" to="/gallery" component={Link} />
+		<Tabs indicatorColor="secondary" textColor="secondary" color="secondary" value={currentTab}>
+			<StyledTab label="Home" value="/" to="/" component={Link} />
+			<StyledTab label="Search" value="/search" to="/search" component={Link} />
+			<StyledTab label="Gallery" value="/gallery" to="/gallery" component={Link} />
 		</Tabs>
 	);
 }
@@ -38,13 +48,14 @@ function MyTabs() {
 export function MenuAppBar() {
 	return (
 		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="static" sx={{ backgroundColor: "#FFFFFF", color: "#000000" }}>
+			<AppBar position="static" >
 				<Toolbar>
+					<img src="/logo.svg" alt="logo" />
 					<Typography
 						variant="h6"
 						noWrap
 						component="div"
-						sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+						sx={{ flexGrow: 1, display: { xs: "none", sm: "block" }, }}
 					>
 						DASHBOARD IMAGES
 					</Typography>
