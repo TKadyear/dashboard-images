@@ -7,6 +7,9 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DownloadIcon from "@mui/icons-material/Download";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { useDispatch } from "react-redux";
+import { addPhoto } from "../features/my-photos/myPhotosSlice";
+
 const GridImages = styled.div`
 	width: 90%;
 	margin: 2rem auto;
@@ -58,6 +61,7 @@ const CardImages = (props) => {
 	);
 };
 export const DisplayImages = (props) => {
+	const dispatch = useDispatch();
 	const [isEditing, setIsEditing] = useState("");
 	const [open, setOpen] = useState("");
 	const handleEdit = (id) => {
@@ -68,6 +72,7 @@ export const DisplayImages = (props) => {
 		setIsEditing("");
 		setOpen(false);
 	};
+
 	const editButton = (id) => {
 		let edit = (<Tooltip title="Edit Description">
 			<IconButton onClick={() => handleEdit(id)} aria-label="edit">
@@ -96,7 +101,7 @@ export const DisplayImages = (props) => {
 			</>)
 			: (
 				<Tooltip title="Add to my photos">
-					<IconButton onClick={() => props.onClick(item)} aria-label="Add to My Photos">
+					<IconButton onClick={() => dispatch(addPhoto(item))} aria-label="Add to My Photos">
 						<AddCircleOutlineIcon />
 					</IconButton>
 				</Tooltip>

@@ -5,7 +5,7 @@ export const unsplashPhotosSlice = createSlice({
   name: "unsplash-photos",
   initialState: [],
   reducers: {
-    addListPhoto: (state, action) => {//Aunque no necesite el state se borra por completo
+    addListPhoto: (state, action) => {//? Aunque no necesite el state si lo borro, no funciona nada.
       const newState = [...action.payload];
       return newState;
     }

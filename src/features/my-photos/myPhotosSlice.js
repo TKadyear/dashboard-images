@@ -22,7 +22,9 @@ export const myPhotosSlice = createSlice({
     addPhoto: (state, action) => {
       const isAlreadyAdded = [...state.allPhotos].every(element => element.id != action.payload.id);
       if (isAlreadyAdded) {
-        const newState = [...state.allPhotos].concat(action.payload);
+        const date = new Date();
+        const newPhoto = { ...action.payload, date_import: date.toISOString(), date_import_timestamp: date.getTime() };
+        const newState = [...state.allPhotos].concat(newPhoto);
         localStorage.setItem("imported_photos", JSON.stringify(newState));
         return { ...state, allPhotos: newState };
       }
