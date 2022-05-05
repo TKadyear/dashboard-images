@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 export const sortSlice = createSlice({
   name: "sort",
   initialState: {
@@ -13,7 +12,7 @@ export const sortSlice = createSlice({
   },
   reducers: {
     addMoreOptions: (state, action) => { //Este reducer realmente inicializa y cambia las opciones pero hayq ue pensar como nombrarlo mejor
-      return { ...state, allOptionsAvailable: { ...state.allOptionsAvailable, ...action.payload } };
+      return { ...state, allOptionsAvailable: { ...state.allOptionsAvailable, [action.payload.key]: action.payload.value } };
     },
 
     changeFlowOfSort: (state) => {
