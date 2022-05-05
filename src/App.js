@@ -1,26 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-import Button from '@mui/material/Button';
+import { Home } from "./pages/Home";
+import { Search } from "./pages/SearchPage";
+import { Gallery } from "./pages/PersonalGallery";
+import { Routes, Route } from "react-router-dom";
+import { MenuAppBar } from "./components/NavMenu";
+import { FooterBar } from "./components/Footer";
+import { NoMatch } from "./pages/NoMatch";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <Button variant="contained">Contained</Button>
-      </header>
-    </div>
-  );
+	return (
+		<div className="App">
+			<MenuAppBar />
+			<main>
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/search" element={<Search />} />
+					<Route path="/gallery" element={<Gallery />} />
+					<Route path="*" element={<NoMatch />} />
+				</Routes>
+			</main>
+			<FooterBar />
+		</div>
+	);
 }
 
 export default App;
