@@ -50,9 +50,9 @@ export const Search = () => {
 			</FilterBar>
 			{isSearching && <Spinner />}
 			{listImages.length === 0
-				? <NoResults
-					textContent={firstRequest ? "Try to search." : `We're sorry. We were not able to find a match for "${searchTerm}".`}
-					subtitle={firstRequest || "Try Another Search?"} />
+				? firstRequest || <NoResults
+					textContent={searchTerm.length === 0 ? "" : `We're sorry. We were not able to find a match for "${searchTerm}".`}
+					subtitle={"Try Another Search?"} />
 				: <DisplayImages itemData={listImages} />}
 
 		</>
