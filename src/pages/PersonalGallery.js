@@ -5,7 +5,6 @@ import { InputSearch } from "../components/TextField";
 import { FilterBar } from "../components/FilterBar";
 import { useState } from "react";
 import { NoImages } from "./NoMatch";
-import { saveAs } from "file-saver";
 
 export function Gallery() {
 	const dispatch = useDispatch();
@@ -19,7 +18,6 @@ export function Gallery() {
 		const payload = { description: value, id: id };
 		dispatch(editDescription(payload));
 	};
-	const handleDownload = (url) => saveAs(url, "myphoto.jpg");
 	// TODO Diferenciar a cuando no hay ninguna imagen en el store, se podría mirar con el selector
 	return (
 		<>
@@ -39,7 +37,7 @@ export function Gallery() {
 								onChange={handleChange}
 							/>
 						</FilterBar>
-						<DisplayImages personalPhotos={true} itemData={listImages} onDownload={handleDownload} onClickRemove={handleClickRemove} onSubmitEdit={handleSubmitEdit} />
+						<DisplayImages personalPhotos={true} itemData={listImages} onClickRemove={handleClickRemove} onSubmitEdit={handleSubmitEdit} />
 					</>)
 					: <NoImages text="Parece que aún no tienes ninguna foto añadida. Empieza a buscar en :" to="/search" value="Search" />
 			}

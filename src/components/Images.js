@@ -9,6 +9,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useDispatch } from "react-redux";
 import { addPhoto } from "../features/my-photos/myPhotosSlice";
+import { saveAs } from "file-saver";
 
 const GridImages = styled.div`
 	width: 90%;
@@ -72,6 +73,7 @@ export const DisplayImages = (props) => {
 		setIsEditing("");
 		setOpen(false);
 	};
+	const handleDownload = (url, id) => saveAs(url, `${id}.jpg`);
 
 	const editButton = (id) => {
 		let edit = (<Tooltip title="Edit Description">
@@ -94,7 +96,7 @@ export const DisplayImages = (props) => {
 					</IconButton>
 				</Tooltip>
 				<Tooltip title="Download Image">
-					<IconButton aria-label="download" onClick={() => props.onDownload(item.urls.full)}>
+					<IconButton aria-label="download" onClick={() => handleDownload(item.urls.full, item.id)}>
 						<DownloadIcon />
 					</IconButton>
 				</Tooltip>
