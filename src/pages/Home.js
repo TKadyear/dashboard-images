@@ -1,49 +1,50 @@
 import { Typography, Box, Button } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
+import SearchIcon from "@mui/icons-material/Search";
 import styled from "@emotion/styled";
-import { useState } from "react";
-import { InputSearch } from "../components/TextField";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { getRandomPhoto } from "../services/unsplash-api";
 
 const Container = styled.div`/*css*/
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
 	align-items: center;
-	text-align: center;
+	/* text-align: center; */
 	gap: 2rem;
 	padding: 2rem;
-`;
-const FormSearch = styled.div`/*css*/
-	display: flex;
-	width: 50%;
-	flex-direction: row;
-	gap: 1rem;
+	`;
+const Image = styled.div`/*css*/
+	width: 40%;
+	height: 60vh;
+	background: url(${props => props.bg}) no-repeat center;
+	background-size: cover;
+	border-radius: 25% 25% 0 0;
 `;
 
 export const Home = () => {
-	const [searchTerm, setSearchTerm] = useState("");
-	const handleChange = (e) => setSearchTerm(e.target.value);
+	const [background, setBackground] = useState("");
+	useEffect(() => {
+		getRandomPhoto()
+			.then(r => setBackground(r));
+	}, []);
 	return (
 		<>
 			<Container>
-				<Box sx={{ width: "65%" }}>
-					<Typography variant="h1">Encuentra <strong style={{ color: "#4949a3" }}>todas las imágenes</strong> que quieras</Typography>
-					<Typography variant="h2" >Todas las imágenes de uso libre</Typography>
-				</Box>
-				<FormSearch>
-
-					<InputSearch
-						id="search"
-						label="Search"
-						value={searchTerm}
-						onChange={handleChange}
-					>
-					</InputSearch>
-					<Button variant="contained" to={searchTerm ? `/search/?query=${searchTerm}` : "/search"} endIcon={<SendIcon />} component={Link}>
-						Send
+				<Box sx={{ width: "45%" }}>
+					<Typography variant="h1" sx={{ fontSize: "4rem" }}>
+						All the assets you need, in one place
+					</Typography>
+					<Typography variant="h1" sx={{ fontSize: "1.75rem" }}>
+						Find and download the best high-quality photos
+					</Typography>
+					<Button variant="contained" to="/search" endIcon={<SearchIcon />} component={Link}>
+						Search
 					</Button>
-				</FormSearch>
+				</Box>
 
+				<Image bg={background} />
 			</Container>
 		</>
 	);
