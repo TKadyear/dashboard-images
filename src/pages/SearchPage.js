@@ -5,7 +5,6 @@ import { DisplayImages } from "../components/Images";
 import { useDebounce } from "../custom-hooks/useDebounce";
 import { useSelector, useDispatch } from "react-redux";
 import { searchCharacters } from "../services/unsplash-api";
-// import { useLocation } from "react-router-dom";
 import { FilterBar } from "../components/FilterBar";
 import { addListPhoto, unsplashPhotos } from "../features/unsplash-photos/unsplashPhotosSlice";
 import { NoResults } from "../components/NoResults";
@@ -13,8 +12,6 @@ import { NoResults } from "../components/NoResults";
 export const Search = () => {
 	const dispatch = useDispatch();
 	const listImages = useSelector(unsplashPhotos);
-	// const location = useLocation();
-	// console.log(location);
 
 	const [searchTerm, setSearchTerm] = useState("");
 	const [firstRequest, setFirstRequest] = useState(true);
