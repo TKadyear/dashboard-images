@@ -1,4 +1,4 @@
-import { Divider, Tooltip, Button, Card, CardMedia, CardContent, IconButton, Typography } from "@mui/material";
+import { Divider, Tooltip, Card, CardMedia, CardContent, IconButton, Typography, Badge } from "@mui/material";
 import { useState } from "react";
 import { EditText, RemoveModal } from "./ModalEditDescription";
 import styled from "@emotion/styled";
@@ -23,6 +23,15 @@ const ActionsCard = styled.div`
 	flex-flow: row wrap;
 	justify-content: space-between;
 `;
+const StyledBadge = styled(Badge)(({ theme }) => ({
+	"& .MuiBadge-badge": {
+		right: -3,
+		top: 13,
+		border: `2px solid ${theme.palette.background.paper}`,
+		padding: "0 4px",
+	},
+}));
+
 
 const CardImages = (props) => {
 	const item = props.item;
@@ -55,8 +64,10 @@ const CardImages = (props) => {
 			</CardContent>}
 			<ActionsCard>
 				<Tooltip title="Likes">
-					<Button endIcon={<FavoriteIcon />} >{item.likes}</Button>
+					<IconButton aria-label="likes"><StyledBadge badgeContent={item.likes} color="secondary"><FavoriteIcon /></StyledBadge></IconButton>
 				</Tooltip>
+
+
 				<div>
 					{props.children}
 				</div>
