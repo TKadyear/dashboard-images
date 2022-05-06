@@ -3,10 +3,8 @@ import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 
 const Container = styled.div`/*css*/
-position: relative;
-top:-50%;
-transform: translateY(50%);
-display: flex;
+  position: relative;
+  display: flex;
 	flex-direction: column;
   align-items: center;
 	padding: 2rem;

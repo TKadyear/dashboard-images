@@ -39,7 +39,7 @@ export const Home = () => {
 					<Typography variant="h1" sx={{ fontSize: "1.75rem" }}>
 						Find and download the best high-quality photos
 					</Typography>
-					<Button variant="contained" to="/search" endIcon={<SearchIcon />} component={Link}>
+					<Button variant="contained" to="/dashboard-images/search" endIcon={<SearchIcon />} component={Link}>
 						Search
 					</Button>
 				</Box>
