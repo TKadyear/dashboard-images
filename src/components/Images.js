@@ -1,4 +1,4 @@
-import { Divider, Tooltip, Card, CardMedia, CardContent, IconButton, Typography, Badge } from "@mui/material";
+import { Container, Divider, Tooltip, Card, CardMedia, CardContent, IconButton, Typography, Badge } from "@mui/material";
 import { useState } from "react";
 import { EditText, RemoveModal } from "./ModalEditDescription";
 import styled from "@emotion/styled";
@@ -11,13 +11,25 @@ import { useDispatch } from "react-redux";
 import { addPhoto } from "../features/my-photos/myPhotosSlice";
 import { saveAs } from "file-saver";
 
-const GridImages = styled.div`
-	width: 90%;
-	margin: 2rem auto;
-	display:grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
-	gap: 2rem;
-`;
+
+const gridStyle = (theme) => ({
+	width: "max-content",
+	padding: "0 !important",
+	margin: "2rem auto",
+	gridTemplateColumns: "1fr",
+	[theme.breakpoints.up("sm")]: {
+		width: "90%",
+		display: "grid",
+		gap: "2rem",
+		gridTemplateColumns: "1fr 1fr",
+	},
+	[theme.breakpoints.up("md")]: {
+		gridTemplateColumns: "1fr 1fr 1fr",
+	},
+	[theme.breakpoints.up("lg")]: {
+		gridTemplateColumns: "1fr 1fr 1fr 1fr",
+	},
+});
 const ActionsCard = styled.div`
 	display: flex;
 	flex-flow: row wrap;
@@ -36,7 +48,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 const CardImages = (props) => {
 	const item = props.item;
 	return (
-		<Card sx={{ maxWidth: 345, }}>
+		<Card sx={{ maxWidth: 345, marginBottom: "1rem", marginLeft: "1rem" }}>
 			<CardMedia
 				sx={{ objectFit: "cover", position: "relative" }}
 				component="img"
@@ -140,10 +152,10 @@ export const DisplayImages = (props) => {
 			);
 	};
 	return (
-		<GridImages>
+		<Container sx={gridStyle}>
 			{props.itemData.map((item) => <CardImages description={props.personalPhotos} key={item.id} item={item}>
 				{actions(item)}
 			</CardImages>)}
-		</GridImages>
+		</Container>
 	);
 };
