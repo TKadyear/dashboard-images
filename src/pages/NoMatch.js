@@ -1,4 +1,4 @@
-import { Typography, Box, Button, useTheme, useMediaQuery } from "@mui/material";
+import { Typography, Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 
@@ -17,11 +17,10 @@ const LinksRow = styled.div`/*css*/
 	padding: 1rem 0;
 `;
 export const NoMatch = () => {
-  const theme = useTheme();
-  const MQTablet = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <Container>
-      <Box sx={{ width: MQTablet ? "90%" : "50%", position: "relative" }}>
+      <Box sx={{ width: { xs: "90%", sm: "75%" }, maxWidth: 550, position: "relative" }}>
         <Typography sx={{ color: "#b0c4de", fontSize: "10rem", position: "absolute", left: "50%", transform: "translateX(-50%)", opacity: 0.5 }} variant="p">404</Typography>
         <Typography variant="h1" sx={{}}>Oops!</Typography>
         <Typography sx={{ fontSize: "1.5rem", textTransform: "uppercase" }} variant="h2" >The link is broken or the page has been moved. Try these pages instead:</Typography>
