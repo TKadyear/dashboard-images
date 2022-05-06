@@ -14,7 +14,7 @@ function App() {
 					<Route path="/dashboard-images" element={<Home />} />
 					<Route path="/dashboard-images/search" element={<Search />} />
 					<Route path="/dashboard-images/gallery" element={<Gallery />} />
-					<Route path="*" element={<NoMatch />} />
+					<Route path="/dashboard-images/*" element={<NoMatch />} />
 				</Routes>
 			</main>
 			<FooterBar />
