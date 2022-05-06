@@ -1,14 +1,15 @@
 import TextField from "@mui/material/TextField";
 
 const style = (theme) => ({
-  width: 250,
-  maxWidth: 900,
+  width: "75%",
+  minWidth: 300,
+  maxWidth: 350,
   marginBottom: "1rem",
-  [theme.breakpoints.up("sm")]: {
-    width: "65%"
-  },
   [theme.breakpoints.up("md")]: {
-    width: "75%"
+    maxWidth: 650,
+  },
+  [theme.breakpoints.up("lg")]: {
+    maxWidth: 900
   }
 });
 export const InputSearch = (props) => {
