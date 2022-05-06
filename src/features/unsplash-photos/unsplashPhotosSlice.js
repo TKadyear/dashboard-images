@@ -5,7 +5,7 @@ export const unsplashPhotosSlice = createSlice({
   name: "unsplash-photos",
   initialState: [],
   reducers: {
-    addListPhoto: (state, action) => {//? Aunque no necesite el state si lo borro, no funciona nada.
+    addListPhoto: (state, action) => {//Although the reducer don't use the "state", If this is not declared, It doesn't work.
       const newState = [...action.payload];
       return newState;
     }

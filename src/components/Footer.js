@@ -1,7 +1,6 @@
 import { Typography, Link } from "@mui/material";
 import styled from "@emotion/styled";
 
-/* background: ${theme => theme.palette.primary.main}; */
 const BottomNavigation = styled.footer`/*css*/
   background: #230541;
   color: #FFFFFF;

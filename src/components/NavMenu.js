@@ -49,12 +49,12 @@ export function MenuAppBar() {
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static" >
-				<Toolbar>
+				<Toolbar sx={{ flexWrap: "wrap", justifyContent: { xs: "center", sm: "space-between" } }}>
 					<Typography
 						variant="h6"
 						noWrap
 						component="div"
-						sx={{ flexGrow: 1, display: { xs: "none", sm: "block" }, }}
+						sx={{ flexGrow: { xs: 1, sm: 0 }, display: "block", textAlign: "center" }}
 					>
 						DASHBOARD IMAGES
 					</Typography>

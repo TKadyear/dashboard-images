@@ -12,7 +12,7 @@ export const sortSlice = createSlice({
     isAscending: false
   },
   reducers: {
-    addMoreOptions: (state, action) => { //Este reducer realmente inicializa y cambia las opciones pero hayq ue pensar como nombrarlo mejor
+    addMoreOptions: (state, action) => {
       return { ...state, allOptionsAvailable: { ...state.allOptionsAvailable, [action.payload.key]: action.payload.value } };
     },
     resetOptions: (state) => {

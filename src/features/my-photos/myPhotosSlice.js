@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// LocalStorage getItem y setItem son funciones sincrónas por lo que por eso se puede declarar de esa manera en la línea 5.
 export const myPhotosSlice = createSlice({
   name: "my-photos",
-  initialState: JSON.parse(localStorage.getItem("imported_photos")) || [],
+  initialState: JSON.parse(localStorage.getItem("imported_photos")) || [], //LocalStorage.getItem() is a  synchronous function
   reducers: {
     addPhoto: (state, action) => {
       const isAlreadyAdded = [...state].every(element => element.id != action.payload.id);
@@ -24,7 +23,6 @@ export const myPhotosSlice = createSlice({
     editDescription: (state, action) => {
       const newState = [...state].map(image => {
         if (image.id === action.payload.id) {
-          // Si no lo hago así se muta la ref del objeto por lo que se entiende como una mutación, asi que sale un error de "Immer"
           return { ...image, description: action.payload.description };
         }
         return image;
@@ -35,12 +33,11 @@ export const myPhotosSlice = createSlice({
   }
 });
 
-// Parece ser que no se pueden pasar datos externos a un selector, por lo que esta función hace Currying,
-// basicamente es una función que devuelve otra para que se ejecute pero comparten el scope.
-export const findPhoto = (id) => (state) => {
+
+export const findPhoto = (id) => (state) => {//Currying Functions
   return state.myPhotos.find(img => img.id === id);
 };
-export const sortAllMyPhotos = (searchTerm) => (state) => {
+export const sortAllMyPhotos = (searchTerm) => (state) => {//Currying Functions
   const option = state.sort.optionActive;
   const listFiltered = searchTerm.length === 0
     ? [...state.myPhotos]
