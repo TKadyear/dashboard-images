@@ -16,10 +16,6 @@ jobs:
           mkdir -p ~/.ssh/
           echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
           sudo chmod 600 ~/.ssh/id_rsa
-      - name: Git User Config
-        run: |
-          git config --global user.email "tamarakadyear@gmail.com"
-          git config --global user.name "TKadyear"
       - name: Install Dependencies
         run: npm install
       - name: Build
@@ -42,6 +38,12 @@ jobs:
         run: |
           pwd
           ls -a
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Git User Config
+        run: |
+          git config --global user.email "tamarakadyear@gmail.com"
+          git config --global user.name "TKadyear"
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
