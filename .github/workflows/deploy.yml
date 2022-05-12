@@ -44,6 +44,6 @@ jobs:
           ls -a
 
       - name: Deploy with gh-pages 🚀
-        run: npx gh-pages -d dashboard-images/build -u "github-actions-bot <support+actions@github.com>"
+        run: npx gh-pages -d build -u "github-actions-bot <support+actions@github.com>"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
