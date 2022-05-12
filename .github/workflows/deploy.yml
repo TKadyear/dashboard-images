@@ -34,12 +34,14 @@ jobs:
         with:
           name: build-artifact
           path: build
+      - name: Checkout repository
+        uses: actions/checkout@v3
       - name: donde estamos 🏗
         run: |
           pwd
           ls -a
-      - name: Checkout repository
-        uses: actions/checkout@v3
+          cd build
+          pwd
       - name: Git User Config
         run: |
           git config --global user.email "tamarakadyear@gmail.com"
@@ -49,3 +51,4 @@ jobs:
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: build # The folder the action should deploy.
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
